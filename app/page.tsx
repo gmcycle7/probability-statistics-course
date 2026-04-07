@@ -6,6 +6,7 @@ import { CHAPTERS } from "@/content/registry";
 import { MODULES } from "@/content/modules";
 import { Badge } from "@/components/ui/Badge";
 import { useT } from "@/lib/i18n/useT";
+import { ContinueLearningCard } from "@/components/learning/ContinueLearningCard";
 
 export default function HomePage() {
   const { t, locale } = useT();
@@ -46,6 +47,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Resume card (only if user has visited at least one chapter) */}
+      <ContinueLearningCard />
 
       {/* Pillars */}
       <section className="container-wide pb-10">

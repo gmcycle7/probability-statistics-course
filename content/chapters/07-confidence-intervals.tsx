@@ -10,7 +10,7 @@ const chapter: Chapter = {
   meta: {
     slug: "confidence-intervals",
     module: "E_estimation",
-    number: 7,
+    number: 10,
     minutes: 35,
     level: 4,
     prereqs: ["central-limit-theorem", "maximum-likelihood-estimation"],
