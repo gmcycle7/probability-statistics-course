@@ -261,6 +261,30 @@ const chapter: Chapter = {
           explanation:
             "1 − (1 − 0.05)^20 ≈ 1 − 0.358 ≈ 0.642. Without correction, multiple testing makes false positives almost certain.",
         },
+        {
+          id: "q4",
+          type: "numeric",
+          prompt:
+            "z-test of H₀: p=0.5 with 60 heads in 100 flips. Compute the test statistic z. (Round to 1 decimal.)",
+          answer: 2.0,
+          tolerance: 0.05,
+          hint: "z = (p̂ − p₀)/√(p₀(1−p₀)/n).",
+          explanation: "z = (0.6 − 0.5)/√(0.25/100) = 0.1/0.05 = 2.0.",
+        },
+        {
+          id: "q5",
+          type: "ordering",
+          prompt: "Re-order the steps of running a hypothesis test.",
+          steps: [
+            { id: "s1", label: "Specify H₀ and H₁" },
+            { id: "s2", label: "Choose a test statistic T(X) and its null distribution" },
+            { id: "s3", label: "Pick a significance level α" },
+            { id: "s4", label: "Compute T(x_obs) from the data" },
+            { id: "s5", label: "Compare to the critical value or compute the p-value" },
+            { id: "s6", label: "Reject or fail to reject; report effect size" },
+          ],
+          explanation: "Specify → choose → pick → compute → compare → decide.",
+        },
       ],
       furtherReading: [
         { title: "Lehmann & Romano — Testing Statistical Hypotheses" },
@@ -508,6 +532,30 @@ const chapter: Chapter = {
           answer: "d",
           explanation:
             "1 − (1 − 0.05)²⁰ ≈ 1 − 0.358 ≈ 0.642。如果不做修正，多重檢定會讓假陽性幾乎變成必然。",
+        },
+        {
+          id: "q4",
+          type: "numeric",
+          prompt:
+            "對 H₀: p=0.5 做 z 檢定，100 次拋擲中有 60 次正面。計算檢定統計量 z。（取 1 位小數）",
+          answer: 2.0,
+          tolerance: 0.05,
+          hint: "z = (p̂ − p₀)/√(p₀(1−p₀)/n)。",
+          explanation: "z = (0.6 − 0.5)/√(0.25/100) = 0.1/0.05 = 2.0。",
+        },
+        {
+          id: "q5",
+          type: "ordering",
+          prompt: "把跑假設檢定的步驟重新排序。",
+          steps: [
+            { id: "s1", label: "指定 H₀ 與 H₁" },
+            { id: "s2", label: "選擇檢定統計量 T(X) 與其虛無分布" },
+            { id: "s3", label: "選顯著水準 α" },
+            { id: "s4", label: "從資料計算 T(x_obs)" },
+            { id: "s5", label: "與臨界值比較或計算 p 值" },
+            { id: "s6", label: "拒絕或不拒絕；報告效應大小" },
+          ],
+          explanation: "指定 → 選擇 → 挑 → 計算 → 比較 → 決定。",
         },
       ],
       furtherReading: [

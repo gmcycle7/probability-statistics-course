@@ -268,6 +268,29 @@ const chapter: Chapter = {
           explanation:
             "Var(β̂) = σ²/Σ(x − x̄)², so SE = σ/√Σ(x − x̄)². Quadrupling σ² doubles σ, hence doubles the SE.",
         },
+        {
+          id: "q4",
+          type: "numeric",
+          prompt:
+            "Σ(x − x̄)(y − ȳ) = 24 and Σ(x − x̄)² = 12. Compute β̂.",
+          answer: 2,
+          tolerance: 0.05,
+          hint: "β̂ = Σ(x − x̄)(y − ȳ) / Σ(x − x̄)².",
+          explanation: "β̂ = 24/12 = 2.",
+        },
+        {
+          id: "q5",
+          type: "ordering",
+          prompt: "Re-order the derivation of the OLS slope.",
+          steps: [
+            { id: "s1", label: "Write the loss L(α, β) = Σ(y − α − βx)²" },
+            { id: "s2", label: "Differentiate L with respect to α and set to 0 → α̂ = ȳ − β̂ x̄" },
+            { id: "s3", label: "Differentiate L with respect to β and set to 0" },
+            { id: "s4", label: "Substitute α̂ into the β-equation and simplify" },
+            { id: "s5", label: "Read off β̂ = Σ(x − x̄)(y − ȳ)/Σ(x − x̄)²" },
+          ],
+          explanation: "Loss → ∂α → ∂β → substitute → solve.",
+        },
       ],
       furtherReading: [
         { title: "Wasserman — All of Statistics, ch. 13" },
@@ -528,6 +551,29 @@ const chapter: Chapter = {
           answer: "b",
           explanation:
             "Var(β̂) = σ²/Σ(x − x̄)²，所以 SE = σ/√Σ(x − x̄)²。σ² 變 4 倍 ⇒ σ 變 2 倍 ⇒ SE 變 2 倍。",
+        },
+        {
+          id: "q4",
+          type: "numeric",
+          prompt:
+            "Σ(x − x̄)(y − ȳ) = 24、Σ(x − x̄)² = 12。計算 β̂。",
+          answer: 2,
+          tolerance: 0.05,
+          hint: "β̂ = Σ(x − x̄)(y − ȳ) / Σ(x − x̄)²。",
+          explanation: "β̂ = 24/12 = 2。",
+        },
+        {
+          id: "q5",
+          type: "ordering",
+          prompt: "把 OLS 斜率的推導重新排序。",
+          steps: [
+            { id: "s1", label: "寫出損失函數 L(α, β) = Σ(y − α − βx)²" },
+            { id: "s2", label: "對 α 偏微分後設為 0 → α̂ = ȳ − β̂ x̄" },
+            { id: "s3", label: "對 β 偏微分後設為 0" },
+            { id: "s4", label: "把 α̂ 代入 β 的方程式並化簡" },
+            { id: "s5", label: "讀出 β̂ = Σ(x − x̄)(y − ȳ)/Σ(x − x̄)²" },
+          ],
+          explanation: "損失 → ∂α → ∂β → 代入 → 解。",
         },
       ],
       furtherReading: [

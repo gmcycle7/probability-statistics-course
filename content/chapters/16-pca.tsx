@@ -281,6 +281,29 @@ const chapter: Chapter = {
           explanation:
             "PCA does not require Gaussianity. The other three are all reasons standardisation matters in practice.",
         },
+        {
+          id: "q4",
+          type: "numeric",
+          prompt:
+            "Eigenvalues of Σ̂ are λ₁=8, λ₂=3, λ₃=1. The fraction of variance explained by PC1 is... (round to 3 decimals)",
+          answer: 0.667,
+          tolerance: 0.005,
+          hint: "λ₁ / Σλᵢ.",
+          explanation: "8 / (8 + 3 + 1) = 8/12 ≈ 0.667.",
+        },
+        {
+          id: "q5",
+          type: "ordering",
+          prompt: "Re-order the derivation of the first principal component.",
+          steps: [
+            { id: "s1", label: "State the optimisation: max u^T Σ̂ u s.t. ||u|| = 1" },
+            { id: "s2", label: "Form the Lagrangian L = u^T Σ̂ u − λ(u^T u − 1)" },
+            { id: "s3", label: "Set ∇_u L = 0 to get Σ̂ u = λ u" },
+            { id: "s4", label: "Recognise the eigenvalue equation" },
+            { id: "s5", label: "The optimum is the eigenvector with the largest eigenvalue" },
+          ],
+          explanation: "Optimisation → Lagrangian → KKT → eigenvector → take the largest.",
+        },
       ],
       furtherReading: [
         { title: "Hastie, Tibshirani & Friedman — Elements of Statistical Learning, ch. 14" },
@@ -539,6 +562,29 @@ const chapter: Chapter = {
           answer: "d",
           explanation:
             "PCA 不要求常態性。其他三個都是實務上「為什麼要標準化」的合理理由。",
+        },
+        {
+          id: "q4",
+          type: "numeric",
+          prompt:
+            "Σ̂ 的特徵值為 λ₁=8、λ₂=3、λ₃=1。PC1 解釋的變異比例為？（取 3 位小數）",
+          answer: 0.667,
+          tolerance: 0.005,
+          hint: "λ₁ / Σλᵢ。",
+          explanation: "8 / (8 + 3 + 1) = 8/12 ≈ 0.667。",
+        },
+        {
+          id: "q5",
+          type: "ordering",
+          prompt: "把第一主成分的推導重新排序。",
+          steps: [
+            { id: "s1", label: "陳述最佳化：max u^T Σ̂ u 在 ||u|| = 1 之下" },
+            { id: "s2", label: "建構 Lagrangian L = u^T Σ̂ u − λ(u^T u − 1)" },
+            { id: "s3", label: "令 ∇_u L = 0 得到 Σ̂ u = λ u" },
+            { id: "s4", label: "辨認特徵值方程式" },
+            { id: "s5", label: "最佳解是「最大特徵值對應的特徵向量」" },
+          ],
+          explanation: "最佳化 → Lagrangian → KKT → 特徵向量 → 取最大。",
         },
       ],
       furtherReading: [

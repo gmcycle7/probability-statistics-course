@@ -236,6 +236,30 @@ const chapter: Chapter = {
           explanation:
             "E[χ²_k] = k, so E[(n−1)S²/σ²] = n−1, which gives E[S²] = σ². This is exactly the unbiasedness of S².",
         },
+        {
+          id: "q4",
+          type: "numeric",
+          prompt:
+            "n=64, σ=8. The standard error of the mean is...",
+          answer: 1,
+          tolerance: 0.01,
+          hint: "SE = σ/√n.",
+          explanation: "SE = 8/√64 = 8/8 = 1.",
+        },
+        {
+          id: "q5",
+          type: "ordering",
+          prompt: "Re-order the steps of deriving the t-statistic distribution.",
+          steps: [
+            { id: "s1", label: "Note Z = (X̄ − μ)/(σ/√n) ~ N(0,1)" },
+            { id: "s2", label: "Note V = (n−1)S²/σ² ~ χ²_{n−1}" },
+            { id: "s3", label: "Use independence Z ⊥ V (under Normality)" },
+            { id: "s4", label: "Form T = Z / √(V/(n−1))" },
+            { id: "s5", label: "Simplify: σ cancels, leaving T = (X̄ − μ)/(S/√n)" },
+            { id: "s6", label: "Recognise this as t_{n−1}" },
+          ],
+          explanation: "Standardise → χ² for variance → independence → ratio → cancel → recognise.",
+        },
       ],
       furtherReading: [
         { title: "Casella & Berger — Statistical Inference, ch. 5" },
@@ -449,6 +473,30 @@ const chapter: Chapter = {
           answer: "b",
           explanation:
             "E[χ²_k] = k，所以 E[(n−1)S²/σ²] = n−1，因此 E[S²] = σ²。這正是 S² 的不偏性。",
+        },
+        {
+          id: "q4",
+          type: "numeric",
+          prompt:
+            "n=64、σ=8。樣本平均的標準誤是？",
+          answer: 1,
+          tolerance: 0.01,
+          hint: "SE = σ/√n。",
+          explanation: "SE = 8/√64 = 8/8 = 1。",
+        },
+        {
+          id: "q5",
+          type: "ordering",
+          prompt: "把 t 統計量分布的推導步驟重新排序。",
+          steps: [
+            { id: "s1", label: "注意 Z = (X̄ − μ)/(σ/√n) ~ N(0,1)" },
+            { id: "s2", label: "注意 V = (n−1)S²/σ² ~ χ²_{n−1}" },
+            { id: "s3", label: "用獨立性 Z ⊥ V（在常態下）" },
+            { id: "s4", label: "建構 T = Z / √(V/(n−1))" },
+            { id: "s5", label: "化簡：σ 消掉，剩下 T = (X̄ − μ)/(S/√n)" },
+            { id: "s6", label: "辨認這就是 t_{n−1}" },
+          ],
+          explanation: "標準化 → 變異數的 χ² → 獨立 → 比值 → 消掉 → 辨認。",
         },
       ],
       furtherReading: [

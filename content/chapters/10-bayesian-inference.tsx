@@ -311,6 +311,29 @@ const chapter: Chapter = {
           explanation:
             "Under regularity conditions, the posterior concentrates and looks Normal around the MLE for large n. The prior matters for small n; in the limit, it washes out.",
         },
+        {
+          id: "q4",
+          type: "numeric",
+          prompt:
+            "Beta(3, 5) prior + 2 successes in 4 Bernoulli trials. Compute the posterior mean. (Round to 3 decimals.)",
+          answer: 0.417,
+          tolerance: 0.005,
+          hint: "Posterior = Beta(α + k, β + n − k); mean = α'/(α' + β').",
+          explanation: "Posterior = Beta(3+2, 5+(4−2)) = Beta(5, 7); mean = 5/12 ≈ 0.417.",
+        },
+        {
+          id: "q5",
+          type: "ordering",
+          prompt: "Re-order the steps of deriving the Beta–Bernoulli posterior.",
+          steps: [
+            { id: "s1", label: "Write the prior: p(θ) ∝ θ^{α₀−1}(1−θ)^{β₀−1}" },
+            { id: "s2", label: "Write the likelihood: p(x|θ) = θ^k(1−θ)^{n−k}" },
+            { id: "s3", label: "Multiply (Bayes, up to a θ-constant)" },
+            { id: "s4", label: "Recognise the result as a Beta kernel" },
+            { id: "s5", label: "Conclude: posterior = Beta(α₀ + k, β₀ + n − k)" },
+          ],
+          explanation: "Prior × likelihood → recognise the conjugate update → write the posterior parameters.",
+        },
       ],
       furtherReading: [
         { title: "Gelman et al. — Bayesian Data Analysis (the 'BDA3' standard)" },
@@ -604,6 +627,29 @@ const chapter: Chapter = {
           answer: "b",
           explanation:
             "在規則條件下，當 n 大時，後驗會集中並在 MLE 附近呈常態形狀。先驗在小 n 時重要；在極限下，它會被洗掉。",
+        },
+        {
+          id: "q4",
+          type: "numeric",
+          prompt:
+            "Beta(3, 5) 先驗 + 4 次 Bernoulli 試驗中有 2 次成功。計算後驗平均。（取 3 位小數）",
+          answer: 0.417,
+          tolerance: 0.005,
+          hint: "後驗 = Beta(α + k, β + n − k)；平均 = α'/(α' + β')。",
+          explanation: "後驗 = Beta(3+2, 5+(4−2)) = Beta(5, 7)；平均 = 5/12 ≈ 0.417。",
+        },
+        {
+          id: "q5",
+          type: "ordering",
+          prompt: "把 Beta–Bernoulli 後驗的推導重新排序。",
+          steps: [
+            { id: "s1", label: "寫出先驗：p(θ) ∝ θ^{α₀−1}(1−θ)^{β₀−1}" },
+            { id: "s2", label: "寫出概似：p(x|θ) = θ^k(1−θ)^{n−k}" },
+            { id: "s3", label: "相乘（貝氏，差一個 θ 的常數）" },
+            { id: "s4", label: "辨認結果為一個 Beta kernel" },
+            { id: "s5", label: "結論：後驗 = Beta(α₀ + k, β₀ + n − k)" },
+          ],
+          explanation: "先驗 × 概似 → 辨認共軛更新 → 寫出後驗參數。",
         },
       ],
       furtherReading: [

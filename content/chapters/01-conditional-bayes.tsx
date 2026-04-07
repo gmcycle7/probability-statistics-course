@@ -272,6 +272,28 @@ const chapter: Chapter = {
           explanation:
             "Beta is conjugate for Bernoulli/Binomial: posterior = Beta(α + heads, β + tails) = Beta(2+3, 2+0) = Beta(5,2).",
         },
+        {
+          id: "q4",
+          type: "numeric",
+          prompt:
+            "P(D)=0.02, P(+|D)=0.95, P(+|¬D)=0.05. Compute P(D|+) (round to 3 decimals).",
+          answer: 0.279,
+          tolerance: 0.01,
+          hint: "P(+) = 0.95·0.02 + 0.05·0.98. Then P(D|+) = 0.95·0.02 / P(+).",
+          explanation: "P(+) = 0.019 + 0.049 = 0.068; P(D|+) = 0.019/0.068 ≈ 0.279.",
+        },
+        {
+          id: "q5",
+          type: "ordering",
+          prompt: "Re-order the steps of applying Bayes' theorem to a disease test.",
+          steps: [
+            { id: "s1", label: "Identify P(D), P(+|D), P(+|¬D)" },
+            { id: "s2", label: "Expand P(+) = P(+|D)·P(D) + P(+|¬D)·P(¬D)" },
+            { id: "s3", label: "Apply P(D|+) = P(+|D)·P(D) / P(+)" },
+            { id: "s4", label: "Compare to your intuition (base rates usually dominate)" },
+          ],
+          explanation: "Identify priors → total probability → Bayes → reality check.",
+        },
       ],
       furtherReading: [
         { title: "Casella & Berger — Statistical Inference, ch. 1" },
@@ -521,6 +543,28 @@ const chapter: Chapter = {
           answer: "b",
           explanation:
             "Beta 是 Bernoulli/Binomial 的共軛先驗：後驗 = Beta(α + heads, β + tails) = Beta(2+3, 2+0) = Beta(5,2)。",
+        },
+        {
+          id: "q4",
+          type: "numeric",
+          prompt:
+            "P(D)=0.02、P(+|D)=0.95、P(+|¬D)=0.05。計算 P(D|+)（取 3 位小數）。",
+          answer: 0.279,
+          tolerance: 0.01,
+          hint: "P(+) = 0.95·0.02 + 0.05·0.98。然後 P(D|+) = 0.95·0.02 / P(+)。",
+          explanation: "P(+) = 0.019 + 0.049 = 0.068；P(D|+) = 0.019/0.068 ≈ 0.279。",
+        },
+        {
+          id: "q5",
+          type: "ordering",
+          prompt: "把「對疾病檢測套用貝氏定理」的步驟重新排序。",
+          steps: [
+            { id: "s1", label: "辨認 P(D)、P(+|D)、P(+|¬D)" },
+            { id: "s2", label: "展開 P(+) = P(+|D)·P(D) + P(+|¬D)·P(¬D)" },
+            { id: "s3", label: "套用 P(D|+) = P(+|D)·P(D) / P(+)" },
+            { id: "s4", label: "和直覺對照（基率通常是主導）" },
+          ],
+          explanation: "辨認先驗 → 全機率 → 貝氏 → 理智檢查。",
         },
       ],
       furtherReading: [

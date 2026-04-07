@@ -275,6 +275,29 @@ const chapter: Chapter = {
           explanation:
             "Detailed balance ⇒ stationary, but stationary chains need not be reversible. Reversible chains are easier to design (Metropolis–Hastings) but not the only ones with stationary distributions.",
         },
+        {
+          id: "q4",
+          type: "numeric",
+          prompt:
+            "Two-state chain with P = [[0.9, 0.1], [0.4, 0.6]]. Compute π₁. (Round to 3 decimals.)",
+          answer: 0.8,
+          tolerance: 0.005,
+          hint: "Solve 0.9π₁ + 0.4π₂ = π₁ with π₁ + π₂ = 1.",
+          explanation: "0.4π₂ = 0.1π₁ ⇒ π₂ = 0.25π₁ ⇒ π₁(1 + 0.25) = 1 ⇒ π₁ = 0.8.",
+        },
+        {
+          id: "q5",
+          type: "ordering",
+          prompt: "Re-order the steps of computing a stationary distribution.",
+          steps: [
+            { id: "s1", label: "Write the chain's transition matrix P" },
+            { id: "s2", label: "Set up the linear system πP = π" },
+            { id: "s3", label: "Add the constraint Σπᵢ = 1" },
+            { id: "s4", label: "Solve the system (or use power iteration)" },
+            { id: "s5", label: "Verify πP = π by direct multiplication" },
+          ],
+          explanation: "P → fixed-point equation → normalisation → solve → verify.",
+        },
       ],
       furtherReading: [
         { title: "Norris — Markov Chains" },
@@ -531,6 +554,29 @@ const chapter: Chapter = {
           answer: "b",
           explanation:
             "細緻均衡 ⇒ 穩態，但穩態的鏈不一定可逆。可逆鏈比較容易設計（Metropolis–Hastings），但不是唯一有穩態的鏈。",
+        },
+        {
+          id: "q4",
+          type: "numeric",
+          prompt:
+            "兩狀態鏈，P = [[0.9, 0.1], [0.4, 0.6]]。計算 π₁。（取 3 位小數）",
+          answer: 0.8,
+          tolerance: 0.005,
+          hint: "解 0.9π₁ + 0.4π₂ = π₁ 並 π₁ + π₂ = 1。",
+          explanation: "0.4π₂ = 0.1π₁ ⇒ π₂ = 0.25π₁ ⇒ π₁(1 + 0.25) = 1 ⇒ π₁ = 0.8。",
+        },
+        {
+          id: "q5",
+          type: "ordering",
+          prompt: "把計算穩態分布的步驟重新排序。",
+          steps: [
+            { id: "s1", label: "寫出鏈的轉移矩陣 P" },
+            { id: "s2", label: "建立線性系統 πP = π" },
+            { id: "s3", label: "加上約束 Σπᵢ = 1" },
+            { id: "s4", label: "解這個系統（或用 power iteration）" },
+            { id: "s5", label: "用直接乘法驗證 πP = π" },
+          ],
+          explanation: "P → 不動點方程 → 歸一化 → 解 → 驗證。",
         },
       ],
       furtherReading: [

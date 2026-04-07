@@ -207,6 +207,29 @@ const chapter: Chapter = {
           explanation:
             "By test–CI duality, the test rejects iff the corresponding CI excludes the null value.",
         },
+        {
+          id: "q4",
+          type: "numeric",
+          prompt:
+            "n=100, σ=5, x̄=20.4. Compute the half-width of a 95% z-interval for μ. (Round to 2 decimals.)",
+          answer: 0.98,
+          tolerance: 0.05,
+          hint: "Half-width = z_{0.975}·σ/√n with z_{0.975} ≈ 1.96.",
+          explanation: "1.96·5/10 = 1.96·0.5 = 0.98.",
+        },
+        {
+          id: "q5",
+          type: "ordering",
+          prompt: "Re-order the steps of constructing a z-interval via the pivotal method.",
+          steps: [
+            { id: "s1", label: "Identify a pivot Z whose distribution does not depend on μ" },
+            { id: "s2", label: "Find z_{α/2} such that P(|Z| ≤ z_{α/2}) = 1−α" },
+            { id: "s3", label: "Bound the pivot: −z_{α/2} ≤ Z ≤ z_{α/2}" },
+            { id: "s4", label: "Solve the inequality for μ" },
+            { id: "s5", label: "Read off CI = X̄ ± z_{α/2}·σ/√n" },
+          ],
+          explanation: "Pivot → bound → invert → solve → read.",
+        },
       ],
       furtherReading: [
         { title: "Wasserman — All of Statistics, ch. 6 & 7" },
@@ -396,6 +419,29 @@ const chapter: Chapter = {
           answer: "a",
           explanation:
             "由檢定 – CI 對偶性，檢定拒絕當且僅當對應的 CI 不包含虛無值。",
+        },
+        {
+          id: "q4",
+          type: "numeric",
+          prompt:
+            "n=100、σ=5、x̄=20.4。計算 95% z 區間的半寬度。（取 2 位小數）",
+          answer: 0.98,
+          tolerance: 0.05,
+          hint: "半寬度 = z_{0.975}·σ/√n，z_{0.975} ≈ 1.96。",
+          explanation: "1.96·5/10 = 1.96·0.5 = 0.98。",
+        },
+        {
+          id: "q5",
+          type: "ordering",
+          prompt: "把「用樞軸法建構 z 區間」的步驟重新排序。",
+          steps: [
+            { id: "s1", label: "辨認樞軸量 Z，其分布不依賴 μ" },
+            { id: "s2", label: "找 z_{α/2} 使 P(|Z| ≤ z_{α/2}) = 1−α" },
+            { id: "s3", label: "界定樞軸：−z_{α/2} ≤ Z ≤ z_{α/2}" },
+            { id: "s4", label: "對 μ 解這個不等式" },
+            { id: "s5", label: "讀出 CI = X̄ ± z_{α/2}·σ/√n" },
+          ],
+          explanation: "樞軸 → 界定 → 反推 → 解 → 讀。",
         },
       ],
       furtherReading: [

@@ -202,6 +202,29 @@ const chapter: Chapter = {
           explanation:
             "Var(X̄_n) = σ²/n, so SD(X̄_n) = σ/√n. This is the famous 'square-root-n' rule that drives sample size planning.",
         },
+        {
+          id: "q4",
+          type: "numeric",
+          prompt:
+            "n=400, σ=10. By Chebyshev, an upper bound on P(|X̄ − μ| > 1) is at most? (round to 3 decimals)",
+          answer: 0.25,
+          tolerance: 0.01,
+          hint: "Chebyshev: P(|X̄ − μ| > ε) ≤ Var(X̄)/ε² = (σ²/n)/ε².",
+          explanation: "Var(X̄) = 100/400 = 0.25, so P(...) ≤ 0.25/1 = 0.25.",
+        },
+        {
+          id: "q5",
+          type: "ordering",
+          prompt: "Re-order the steps of the weak LLN proof via Chebyshev.",
+          steps: [
+            { id: "s1", label: "Compute E[X̄_n] = μ and Var(X̄_n) = σ²/n" },
+            { id: "s2", label: "Apply Chebyshev: P(|X̄ − μ| > ε) ≤ Var(X̄)/ε²" },
+            { id: "s3", label: "Substitute Var(X̄) = σ²/n" },
+            { id: "s4", label: "Take n → ∞ to get the bound → 0" },
+            { id: "s5", label: "Conclude X̄_n → μ in probability" },
+          ],
+          explanation: "Compute moments → Chebyshev → substitute → limit → conclude.",
+        },
       ],
       furtherReading: [
         { title: "Durrett — Probability: Theory and Examples, ch. 2" },
@@ -386,6 +409,29 @@ const chapter: Chapter = {
           answer: "c",
           explanation:
             "Var(X̄_n) = σ²/n，因此 SD(X̄_n) = σ/√n。這就是樣本數規劃的「√n 法則」。",
+        },
+        {
+          id: "q4",
+          type: "numeric",
+          prompt:
+            "n=400、σ=10。由 Chebyshev，P(|X̄ − μ| > 1) 的上界最多是？（取 3 位小數）",
+          answer: 0.25,
+          tolerance: 0.01,
+          hint: "Chebyshev：P(|X̄ − μ| > ε) ≤ Var(X̄)/ε² = (σ²/n)/ε²。",
+          explanation: "Var(X̄) = 100/400 = 0.25，所以 P(...) ≤ 0.25/1 = 0.25。",
+        },
+        {
+          id: "q5",
+          type: "ordering",
+          prompt: "把「用 Chebyshev 證弱 LLN」的步驟重新排序。",
+          steps: [
+            { id: "s1", label: "計算 E[X̄_n] = μ 與 Var(X̄_n) = σ²/n" },
+            { id: "s2", label: "套用 Chebyshev：P(|X̄ − μ| > ε) ≤ Var(X̄)/ε²" },
+            { id: "s3", label: "代入 Var(X̄) = σ²/n" },
+            { id: "s4", label: "取 n → ∞ 得到上界 → 0" },
+            { id: "s5", label: "結論：X̄_n → μ 在機率上成立" },
+          ],
+          explanation: "算動差 → Chebyshev → 代入 → 取極限 → 下結論。",
         },
       ],
       furtherReading: [

@@ -225,6 +225,29 @@ const chapter: Chapter = {
           explanation:
             "E[X] = np = 2, Var(X) = np(1-p) = 100·0.02·0.98 = 1.96. Note how close it is to the Poisson(2) variance — the law of rare events at work.",
         },
+        {
+          id: "q4",
+          type: "numeric",
+          prompt:
+            "X ~ Exponential(λ=2). What is P(X > 1)? (round to 3 decimals)",
+          answer: 0.135,
+          tolerance: 0.005,
+          hint: "P(X > t) = e^{−λt} for Exponential(λ).",
+          explanation: "P(X > 1) = e^{−2·1} = e^{−2} ≈ 0.135.",
+        },
+        {
+          id: "q5",
+          type: "ordering",
+          prompt: "Re-order the steps of deriving the Binomial → Poisson limit.",
+          steps: [
+            { id: "s1", label: "Write Binomial PMF: C(n,k) p^k (1−p)^{n−k}" },
+            { id: "s2", label: "Substitute p = λ/n" },
+            { id: "s3", label: "Note that C(n,k)/n^k → 1/k! as n → ∞" },
+            { id: "s4", label: "Note that (1 − λ/n)^n → e^{−λ}" },
+            { id: "s5", label: "Combine to get e^{−λ} λ^k / k!" },
+          ],
+          explanation: "Write PMF → substitute → simplify both factors → recognise Poisson.",
+        },
       ],
       furtherReading: [
         { title: "Ross — A First Course in Probability, ch. 4 & 5" },
@@ -430,6 +453,29 @@ const chapter: Chapter = {
           answer: "b",
           explanation:
             "E[X] = np = 2，Var(X) = np(1-p) = 100·0.02·0.98 = 1.96。注意它與 Poisson(2) 的變異數有多接近 ── 這就是稀有事件法則在運作。",
+        },
+        {
+          id: "q4",
+          type: "numeric",
+          prompt:
+            "X ~ Exponential(λ=2)。P(X > 1) 是多少？（取 3 位小數）",
+          answer: 0.135,
+          tolerance: 0.005,
+          hint: "Exponential(λ) 的 P(X > t) = e^{−λt}。",
+          explanation: "P(X > 1) = e^{−2·1} = e^{−2} ≈ 0.135。",
+        },
+        {
+          id: "q5",
+          type: "ordering",
+          prompt: "把「Binomial → Poisson 極限」的推導重新排序。",
+          steps: [
+            { id: "s1", label: "寫出 Binomial PMF：C(n,k) p^k (1−p)^{n−k}" },
+            { id: "s2", label: "代入 p = λ/n" },
+            { id: "s3", label: "注意 C(n,k)/n^k → 1/k!（當 n → ∞）" },
+            { id: "s4", label: "注意 (1 − λ/n)^n → e^{−λ}" },
+            { id: "s5", label: "組合得到 e^{−λ} λ^k / k!" },
+          ],
+          explanation: "寫 PMF → 代換 → 化簡兩個因子 → 認出 Poisson。",
         },
       ],
       furtherReading: [

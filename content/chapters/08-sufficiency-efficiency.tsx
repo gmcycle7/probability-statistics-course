@@ -245,6 +245,29 @@ const chapter: Chapter = {
           explanation:
             "I(0.5) = 1/(0.5 · 0.5) = 4. The Fisher information is highest at p = 0.5 — that's where each flip carries the most information about p.",
         },
+        {
+          id: "q4",
+          type: "numeric",
+          prompt:
+            "Bernoulli(p) with n=400 observations. The Cramér–Rao lower bound on Var(p̂) at p=0.4 is...",
+          answer: 0.0006,
+          tolerance: 0.0001,
+          hint: "Bound = 1/(n·I(p)) = p(1-p)/n.",
+          explanation: "p(1-p)/n = 0.24/400 = 0.0006.",
+        },
+        {
+          id: "q5",
+          type: "ordering",
+          prompt: "Re-order the steps of computing the Bernoulli Fisher information.",
+          steps: [
+            { id: "s1", label: "Write log f(x; p) = x log p + (1−x) log(1−p)" },
+            { id: "s2", label: "First derivative: ∂/∂p log f = x/p − (1−x)/(1−p)" },
+            { id: "s3", label: "Second derivative: −x/p² − (1−x)/(1−p)²" },
+            { id: "s4", label: "Take −E[·] using E[X] = p" },
+            { id: "s5", label: "Simplify to get I(p) = 1/(p(1−p))" },
+          ],
+          explanation: "Log-density → score → second derivative → expectation → simplify.",
+        },
       ],
       furtherReading: [
         { title: "Casella & Berger — Statistical Inference, ch. 6" },
@@ -470,6 +493,29 @@ const chapter: Chapter = {
           answer: "d",
           explanation:
             "I(0.5) = 1/(0.5 · 0.5) = 4。Fisher 訊息在 p = 0.5 時最高 ── 那是每次拋擲帶有最多關於 p 的訊息的地方。",
+        },
+        {
+          id: "q4",
+          type: "numeric",
+          prompt:
+            "Bernoulli(p)、n=400 個觀察。在 p=0.4 時，Var(p̂) 的 Cramér–Rao 下界是？",
+          answer: 0.0006,
+          tolerance: 0.0001,
+          hint: "下界 = 1/(n·I(p)) = p(1-p)/n。",
+          explanation: "p(1-p)/n = 0.24/400 = 0.0006。",
+        },
+        {
+          id: "q5",
+          type: "ordering",
+          prompt: "把計算 Bernoulli Fisher 訊息的步驟重新排序。",
+          steps: [
+            { id: "s1", label: "寫出 log f(x; p) = x log p + (1−x) log(1−p)" },
+            { id: "s2", label: "一階導數：∂/∂p log f = x/p − (1−x)/(1−p)" },
+            { id: "s3", label: "二階導數：−x/p² − (1−x)/(1−p)²" },
+            { id: "s4", label: "用 E[X] = p 取 −E[·]" },
+            { id: "s5", label: "化簡得 I(p) = 1/(p(1−p))" },
+          ],
+          explanation: "對數密度 → score → 二階導數 → 取期望 → 化簡。",
         },
       ],
       furtherReading: [

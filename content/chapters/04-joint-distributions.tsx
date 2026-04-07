@@ -268,6 +268,29 @@ const chapter: Chapter = {
           explanation:
             "E[Y|X=x] = μ_Y + ρ(σ_Y/σ_X)(x − μ_X) = 0 + 0.5·1·(2 − 0) = 1.0. Less than X itself — that's regression to the mean.",
         },
+        {
+          id: "q4",
+          type: "numeric",
+          prompt:
+            "Var(X) = 9, Var(Y) = 4, Cov(X, Y) = 3. Compute Cor(X, Y). (round to 2 decimals)",
+          answer: 0.5,
+          tolerance: 0.01,
+          hint: "ρ = Cov(X,Y) / (σ_X · σ_Y).",
+          explanation: "ρ = 3 / (3·2) = 3/6 = 0.5.",
+        },
+        {
+          id: "q5",
+          type: "ordering",
+          prompt: "Re-order the derivation of Var(X + Y).",
+          steps: [
+            { id: "s1", label: "Start from Var(X+Y) = E[((X+Y) − E[X+Y])²]" },
+            { id: "s2", label: "Use linearity of E to expand the inner expression" },
+            { id: "s3", label: "Square the binomial: (X − EX)² + (Y − EY)² + 2(X − EX)(Y − EY)" },
+            { id: "s4", label: "Take expectation termwise" },
+            { id: "s5", label: "Recognise Var(X) + Var(Y) + 2Cov(X,Y)" },
+          ],
+          explanation: "Definition → expand → square → expectation → recognise three terms.",
+        },
       ],
       furtherReading: [
         { title: "Casella & Berger — Statistical Inference, ch. 4" },
@@ -512,6 +535,29 @@ const chapter: Chapter = {
           answer: "c",
           explanation:
             "E[Y|X=x] = μ_Y + ρ(σ_Y/σ_X)(x − μ_X) = 0 + 0.5·1·(2 − 0) = 1.0。比 X 本身小 ── 這就是向均值回歸。",
+        },
+        {
+          id: "q4",
+          type: "numeric",
+          prompt:
+            "Var(X) = 9、Var(Y) = 4、Cov(X, Y) = 3。計算 Cor(X, Y)。（取 2 位小數）",
+          answer: 0.5,
+          tolerance: 0.01,
+          hint: "ρ = Cov(X,Y) / (σ_X · σ_Y)。",
+          explanation: "ρ = 3 / (3·2) = 3/6 = 0.5。",
+        },
+        {
+          id: "q5",
+          type: "ordering",
+          prompt: "把 Var(X + Y) 的推導步驟重新排序。",
+          steps: [
+            { id: "s1", label: "從 Var(X+Y) = E[((X+Y) − E[X+Y])²] 出發" },
+            { id: "s2", label: "用 E 的線性性把內部展開" },
+            { id: "s3", label: "把二項式平方：(X − EX)² + (Y − EY)² + 2(X − EX)(Y − EY)" },
+            { id: "s4", label: "對每一項取期望值" },
+            { id: "s5", label: "辨認出 Var(X) + Var(Y) + 2Cov(X,Y)" },
+          ],
+          explanation: "定義 → 展開 → 平方 → 取期望 → 辨認三項。",
         },
       ],
       furtherReading: [

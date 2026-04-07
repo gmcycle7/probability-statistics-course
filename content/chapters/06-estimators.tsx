@@ -256,6 +256,29 @@ const chapter: Chapter = {
           explanation:
             "Var(k·X̄) = k²Var(X̄) — strictly smaller for |k| < 1. But E[k·X̄] = kμ ≠ μ unless μ = 0, so it's biased.",
         },
+        {
+          id: "q4",
+          type: "numeric",
+          prompt:
+            "An estimator has bias = 0.2 and variance = 0.6. Compute its MSE.",
+          answer: 0.64,
+          tolerance: 0.01,
+          hint: "MSE = bias² + variance.",
+          explanation: "MSE = 0.04 + 0.6 = 0.64.",
+        },
+        {
+          id: "q5",
+          type: "ordering",
+          prompt: "Re-order the derivation of MSE = bias² + variance.",
+          steps: [
+            { id: "s1", label: "Start from MSE(θ̂) = E[(θ̂ − θ)²]" },
+            { id: "s2", label: "Add and subtract E[θ̂] inside the square" },
+            { id: "s3", label: "Expand the square to get three terms" },
+            { id: "s4", label: "Note that the cross term has expectation zero" },
+            { id: "s5", label: "Recognise the surviving variance + bias² terms" },
+          ],
+          explanation: "Definition → add/subtract → expand → cross term vanishes → recognise.",
+        },
       ],
       furtherReading: [
         { title: "Casella & Berger — Statistical Inference, ch. 7" },
@@ -491,6 +514,29 @@ const chapter: Chapter = {
           answer: "b",
           explanation:
             "Var(k·X̄) = k²Var(X̄) ── 對 |k| < 1 嚴格較小。但 E[k·X̄] = kμ ≠ μ（除非 μ = 0），所以是有偏的。",
+        },
+        {
+          id: "q4",
+          type: "numeric",
+          prompt:
+            "一個估計量的 bias = 0.2、variance = 0.6。計算它的 MSE。",
+          answer: 0.64,
+          tolerance: 0.01,
+          hint: "MSE = bias² + variance。",
+          explanation: "MSE = 0.04 + 0.6 = 0.64。",
+        },
+        {
+          id: "q5",
+          type: "ordering",
+          prompt: "把 MSE = bias² + variance 的推導重新排序。",
+          steps: [
+            { id: "s1", label: "從 MSE(θ̂) = E[(θ̂ − θ)²] 出發" },
+            { id: "s2", label: "在平方內加減 E[θ̂]" },
+            { id: "s3", label: "展開平方得到三項" },
+            { id: "s4", label: "注意交叉項的期望值為零" },
+            { id: "s5", label: "辨認剩下的 variance + bias² 兩項" },
+          ],
+          explanation: "定義 → 加減 → 展開 → 交叉項消失 → 辨認。",
         },
       ],
       furtherReading: [

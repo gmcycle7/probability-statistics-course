@@ -228,6 +228,28 @@ const chapter: Chapter = {
           answer: "c",
           explanation: "Var(aX + b) = a² Var(X), so Var(Y) = 9·4 = 36.",
         },
+        {
+          id: "q4",
+          type: "numeric",
+          prompt:
+            "X is a fair die (1..6). Compute Var(X). (Round to 2 decimals.)",
+          answer: 2.92,
+          tolerance: 0.05,
+          hint: "E[X] = 3.5; E[X²] = (1+4+9+16+25+36)/6.",
+          explanation: "E[X²] = 91/6 ≈ 15.17, E[X]² = 12.25, so Var = 15.17 − 12.25 ≈ 2.92.",
+        },
+        {
+          id: "q5",
+          type: "ordering",
+          prompt: "Re-order the derivation of Var(X) = E[X²] − (E[X])².",
+          steps: [
+            { id: "s1", label: "Start from Var(X) = E[(X − E[X])²]" },
+            { id: "s2", label: "Expand the square: E[X² − 2X·E[X] + (E[X])²]" },
+            { id: "s3", label: "Apply linearity: E[X²] − 2E[X]·E[X] + (E[X])²" },
+            { id: "s4", label: "Combine like terms: E[X²] − (E[X])²" },
+          ],
+          explanation: "Definition → expand → linearity → simplify.",
+        },
       ],
       furtherReading: [
         { title: "Ross — A First Course in Probability, ch. 4–5" },
@@ -439,6 +461,28 @@ const chapter: Chapter = {
           ],
           answer: "c",
           explanation: "Var(aX + b) = a² Var(X)，所以 Var(Y) = 9·4 = 36。",
+        },
+        {
+          id: "q4",
+          type: "numeric",
+          prompt:
+            "X 是一顆公平的骰子（1..6）。計算 Var(X)。（取 2 位小數）",
+          answer: 2.92,
+          tolerance: 0.05,
+          hint: "E[X] = 3.5；E[X²] = (1+4+9+16+25+36)/6。",
+          explanation: "E[X²] = 91/6 ≈ 15.17，E[X]² = 12.25，所以 Var ≈ 2.92。",
+        },
+        {
+          id: "q5",
+          type: "ordering",
+          prompt: "把 Var(X) = E[X²] − (E[X])² 的推導重新排序。",
+          steps: [
+            { id: "s1", label: "從 Var(X) = E[(X − E[X])²] 出發" },
+            { id: "s2", label: "展開平方：E[X² − 2X·E[X] + (E[X])²]" },
+            { id: "s3", label: "套用線性性：E[X²] − 2E[X]·E[X] + (E[X])²" },
+            { id: "s4", label: "合併同類項：E[X²] − (E[X])²" },
+          ],
+          explanation: "定義 → 展開 → 線性性 → 化簡。",
         },
       ],
       furtherReading: [
