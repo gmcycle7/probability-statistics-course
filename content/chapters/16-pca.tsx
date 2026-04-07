@@ -10,7 +10,7 @@ const chapter: Chapter = {
   meta: {
     slug: "principal-component-analysis",
     module: "H_advanced",
-    number: 16,
+    number: 23,
     minutes: 40,
     level: 4,
     prereqs: ["joint-distributions-and-covariance"],

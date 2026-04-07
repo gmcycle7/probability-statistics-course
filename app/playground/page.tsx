@@ -15,6 +15,11 @@ import { EstimatorComparisonLab } from "@/components/interactive/EstimatorCompar
 import { JointDistributionExplorer } from "@/components/interactive/JointDistributionExplorer";
 import { MarkovChainSimulator } from "@/components/interactive/MarkovChainSimulator";
 import { PCAVisualizer } from "@/components/interactive/PCAVisualizer";
+import { BootstrapSimulator } from "@/components/interactive/BootstrapSimulator";
+import { MultipleTestingExplorer } from "@/components/interactive/MultipleTestingExplorer";
+import { OverfittingExplorer } from "@/components/interactive/OverfittingExplorer";
+import { CausationLab } from "@/components/interactive/CausationLab";
+import { CorrelationHeatmap } from "@/components/interactive/CorrelationHeatmap";
 import { useT } from "@/lib/i18n/useT";
 
 const TOOLS = (locale: "en" | "zh") => [
@@ -101,6 +106,36 @@ const TOOLS = (locale: "en" | "zh") => [
     label: { en: "PCA", zh: "主成分分析" }[locale],
     el: <PCAVisualizer />,
     blurb: { en: "Watch principal axes snap to maximum-variance directions.", zh: "看主軸瞬間對齊到變異最大的方向。" }[locale],
+  },
+  {
+    id: "bootstrap",
+    label: { en: "Bootstrap", zh: "Bootstrap" }[locale],
+    el: <BootstrapSimulator />,
+    blurb: { en: "Resample with replacement and read off a CI.", zh: "有放回重抽樣，讀出 CI。" }[locale],
+  },
+  {
+    id: "multitest",
+    label: { en: "Multiple testing", zh: "多重檢定" }[locale],
+    el: <MultipleTestingExplorer />,
+    blurb: { en: "Bonferroni vs BH on m simulated tests.", zh: "在 m 個模擬檢定上比較 Bonferroni 與 BH。" }[locale],
+  },
+  {
+    id: "overfit",
+    label: { en: "Overfitting", zh: "過擬合" }[locale],
+    el: <OverfittingExplorer />,
+    blurb: { en: "Watch test MSE U-shape as polynomial degree grows.", zh: "看 test MSE 隨次數變化的 U 形。" }[locale],
+  },
+  {
+    id: "causation",
+    label: { en: "Causation lab", zh: "因果實驗室" }[locale],
+    el: <CausationLab />,
+    blurb: { en: "Confounders + Simpson's paradox in real time.", zh: "Confounder 與 Simpson 悖論，即時運作。" }[locale],
+  },
+  {
+    id: "heatmap",
+    label: { en: "Correlation heatmap", zh: "相關熱圖" }[locale],
+    el: <CorrelationHeatmap />,
+    blurb: { en: "AR(1) covariance heatmap with sliders for p, n, ρ.", zh: "AR(1) 共變異熱圖，可調 p、n、ρ。" }[locale],
   },
 ];
 

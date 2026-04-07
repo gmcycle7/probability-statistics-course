@@ -10,7 +10,7 @@ const chapter: Chapter = {
   meta: {
     slug: "hypothesis-testing",
     module: "F_testing",
-    number: 12,
+    number: 14,
     minutes: 50,
     level: 4,
     prereqs: ["confidence-intervals"],

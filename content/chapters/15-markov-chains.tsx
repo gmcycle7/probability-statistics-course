@@ -10,7 +10,7 @@ const chapter: Chapter = {
   meta: {
     slug: "markov-chains",
     module: "H_advanced",
-    number: 15,
+    number: 22,
     minutes: 45,
     level: 4,
     prereqs: ["joint-distributions-and-covariance"],
