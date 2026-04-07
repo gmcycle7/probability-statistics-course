@@ -1,11 +1,33 @@
 # Probability & Statistics — Interactive Course
 
+🌐 **Live site:** https://gmcycle7.github.io/probability-statistics-course/
+
 A graduate-level course in probability and statistics, built around live
 simulations, step-by-step derivations, and a three-layer teaching model:
 **Intuition → Formalism → Graduate insight**.
 
 Built with Next.js 14 (App Router), TypeScript, Tailwind, KaTeX, Recharts and
 Zustand. Everything runs in the browser — no backend, no telemetry.
+
+## Deployment
+
+The site is exported as a fully static bundle (`output: 'export'`) and
+deployed to GitHub Pages on every push to `main` via the workflow at
+`.github/workflows/deploy.yml`. The base path
+`/probability-statistics-course` is wired into `next.config.mjs` so all
+internal links and asset URLs are correctly prefixed for the project-site
+URL.
+
+To preview the static export locally:
+
+```bash
+npm run build      # produces ./out
+npx serve out      # or any static file server
+```
+
+`npm run dev` automatically uses no basePath, so local development works at
+plain `http://localhost:3000/`. The basePath is only applied during
+`next build`.
 
 ## Quick start
 
