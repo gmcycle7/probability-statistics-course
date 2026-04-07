@@ -15,8 +15,10 @@ import { Slider } from "@/components/ui/Slider";
 import { Button } from "@/components/ui/Button";
 import { beta } from "@/lib/stats/distributions";
 import { linspace } from "@/lib/stats/summary";
+import { useT } from "@/lib/i18n/useT";
 
 export function BayesUpdater() {
+  const { t } = useT();
   const [alpha0, setAlpha0] = useState(2);
   const [beta0, setBeta0] = useState(2);
   const [heads, setHeads] = useState(0);
@@ -51,36 +53,36 @@ export function BayesUpdater() {
                 formatter={(v: number) => v.toFixed(3)}
                 labelFormatter={(v) => `θ = ${Number(v).toFixed(3)}`}
               />
-              <Area type="monotone" dataKey="prior" stroke="#9aa4bf" fill="#9aa4bf" fillOpacity={0.15} name="prior" />
-              <Area type="monotone" dataKey="posterior" stroke="#7c9cff" fill="#7c9cff" fillOpacity={0.35} name="posterior" />
+              <Area type="monotone" dataKey="prior" stroke="#9aa4bf" fill="#9aa4bf" fillOpacity={0.15} name={t("sim.priorLabel").split(" ")[0]} />
+              <Area type="monotone" dataKey="posterior" stroke="#7c9cff" fill="#7c9cff" fillOpacity={0.35} name={t("sim.posterior")} />
               <Legend wrapperStyle={{ fontSize: 11 }} />
             </AreaChart>
           </ResponsiveContainer>
         </div>
         <div className="space-y-4">
-          <div className="text-xs text-ink-muted uppercase tracking-wider">Prior · Beta(α₀, β₀)</div>
+          <div className="text-xs text-ink-muted uppercase tracking-wider">{t("sim.priorLabel")}</div>
           <Slider label="α₀" value={alpha0} min={0.5} max={20} step={0.1} onChange={setAlpha0} format={(v) => v.toFixed(1)} />
           <Slider label="β₀" value={beta0} min={0.5} max={20} step={0.1} onChange={setBeta0} format={(v) => v.toFixed(1)} />
 
-          <div className="text-xs text-ink-muted uppercase tracking-wider mt-3">Coin tosses observed</div>
+          <div className="text-xs text-ink-muted uppercase tracking-wider mt-3">{t("sim.evidence")}</div>
           <div className="grid grid-cols-2 gap-2">
             <Button size="sm" variant="subtle" onClick={() => setHeads((h) => h + 1)}>
-              + heads ({heads})
+              + {t("sim.heads")} ({heads})
             </Button>
-            <Button size="sm" variant="subtle" onClick={() => setTails((t) => t + 1)}>
-              + tails ({tails})
+            <Button size="sm" variant="subtle" onClick={() => setTails((tt) => tt + 1)}>
+              + {t("sim.tails")} ({tails})
             </Button>
           </div>
           <Button size="sm" variant="ghost" onClick={() => { setHeads(0); setTails(0); }}>
-            reset evidence
+            {t("sim.resetEvidence")}
           </Button>
 
           <div className="rounded-xl border border-bg-border bg-bg-soft p-3 text-xs space-y-1 font-mono">
-            <div className="text-ink-muted normal-case tracking-normal">posterior</div>
+            <div className="text-ink-muted normal-case tracking-normal">{t("sim.posterior")}</div>
             <div>Beta({a1.toFixed(1)}, {b1.toFixed(1)})</div>
-            <div className="text-accent-amber">mean = {postMean.toFixed(3)}</div>
+            <div className="text-accent-amber">{t("sim.mean")} = {postMean.toFixed(3)}</div>
             {!Number.isNaN(postMode) && (
-              <div className="text-accent">mode = {postMode.toFixed(3)}</div>
+              <div className="text-accent">{t("sim.mode")} = {postMode.toFixed(3)}</div>
             )}
           </div>
         </div>

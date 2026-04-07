@@ -1,46 +1,47 @@
+"use client";
+
 import Link from "next/link";
 import { ArrowRight, BookOpen, Brain, FlaskConical, Sigma } from "lucide-react";
 import { CHAPTERS } from "@/content/registry";
 import { MODULES } from "@/content/modules";
 import { Badge } from "@/components/ui/Badge";
+import { useT } from "@/lib/i18n/useT";
 
 export default function HomePage() {
+  const { t, locale } = useT();
   return (
     <div>
       {/* Hero */}
       <section className="container-wide pt-16 pb-10">
         <div className="max-w-3xl">
-          <Badge tone="accent">Interactive · Graduate-level · Self-paced</Badge>
+          <Badge tone="accent">{t("home.badge")}</Badge>
           <h1 className="mt-4 text-4xl sm:text-5xl font-semibold tracking-tight text-ink">
-            Probability & Statistics,{" "}
+            {t("home.title.before")}
             <span className="bg-gradient-to-r from-accent via-accent-violet to-accent-rose bg-clip-text text-transparent">
-              learned by playing with it.
+              {t("home.title.gradient")}
             </span>
           </h1>
           <p className="mt-5 text-lg leading-relaxed text-ink-dim">
-            A complete graduate-level course built around three layers per
-            topic — intuition, formal definitions, and graduate-level insight —
-            with live simulations, derivations you can step through, and
-            quizzes that actually score you.
+            {t("home.subtitle")}
           </p>
           <div className="mt-7 flex flex-wrap gap-3">
             <Link
               href={`/chapters/${CHAPTERS[0].meta.slug}`}
               className="inline-flex items-center gap-2 rounded-xl bg-accent px-5 py-3 text-bg font-medium hover:bg-accent/90 transition-colors"
             >
-              Start with Chapter 1 <ArrowRight className="h-4 w-4" />
+              {t("home.cta.start")} <ArrowRight className="h-4 w-4" />
             </Link>
             <Link
               href="/roadmap"
               className="inline-flex items-center gap-2 rounded-xl border border-bg-border bg-bg-card px-5 py-3 text-ink hover:border-accent/60 hover:text-accent transition-colors"
             >
-              View the full roadmap
+              {t("home.cta.roadmap")}
             </Link>
             <Link
               href="/playground"
               className="inline-flex items-center gap-2 rounded-xl border border-bg-border bg-bg-card px-5 py-3 text-ink hover:border-accent/60 hover:text-accent transition-colors"
             >
-              Open the playground
+              {t("home.cta.playground")}
             </Link>
           </div>
         </div>
@@ -51,26 +52,26 @@ export default function HomePage() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <Pillar
             icon={<Brain className="h-5 w-5" />}
-            title="Intuition first"
-            text="Every concept starts with a picture you can manipulate, not a definition."
+            title={t("home.pillar.intuition.title")}
+            text={t("home.pillar.intuition.text")}
             tint="amber"
           />
           <Pillar
             icon={<Sigma className="h-5 w-5" />}
-            title="Formal mathematics"
-            text="Definitions, theorems, and step-by-step derivations rendered in KaTeX."
+            title={t("home.pillar.formal.title")}
+            text={t("home.pillar.formal.text")}
             tint="accent"
           />
           <Pillar
             icon={<FlaskConical className="h-5 w-5" />}
-            title="Live simulations"
-            text="See LLN, CLT, Bayes updates and confidence intervals run in your browser."
+            title={t("home.pillar.sim.title")}
+            text={t("home.pillar.sim.text")}
             tint="green"
           />
           <Pillar
             icon={<BookOpen className="h-5 w-5" />}
-            title="Graduate insight"
-            text="Each chapter ends with the technical details, common misuses, and connections."
+            title={t("home.pillar.grad.title")}
+            text={t("home.pillar.grad.text")}
             tint="violet"
           />
         </div>
@@ -79,40 +80,43 @@ export default function HomePage() {
       {/* Featured chapters */}
       <section className="container-wide pb-10">
         <div className="flex items-baseline justify-between mb-5">
-          <h2 className="text-2xl font-semibold text-ink">Start here</h2>
+          <h2 className="text-2xl font-semibold text-ink">{t("home.featured")}</h2>
           <Link href="/roadmap" className="text-sm text-accent hover:underline">
-            All chapters →
+            {t("home.allChapters")} →
           </Link>
         </div>
         <div className="grid md:grid-cols-2 gap-4">
-          {CHAPTERS.slice(0, 4).map((c) => (
-            <Link
-              key={c.meta.slug}
-              href={`/chapters/${c.meta.slug}`}
-              className="group rounded-2xl border border-bg-border bg-bg-card/70 p-5 hover:border-accent/60 transition-colors"
-            >
-              <div className="flex items-center gap-2 mb-2">
-                <span className="font-mono text-xs text-ink-muted">
-                  {String(c.meta.number).padStart(2, "0")}
-                </span>
-                <Badge tone="accent">{moduleLetter(c.meta.module)}</Badge>
-                <span className="text-xs text-ink-muted">
-                  ~{c.meta.minutes} min · level {c.meta.level}
-                </span>
-              </div>
-              <div className="text-lg font-semibold text-ink group-hover:text-accent transition-colors">
-                {c.meta.title}
-              </div>
-              <div className="mt-1 text-sm text-ink-dim leading-relaxed">{c.meta.hook}</div>
-            </Link>
-          ))}
+          {CHAPTERS.slice(0, 4).map((c) => {
+            const payload = c.localized[locale] ?? c.localized.en;
+            return (
+              <Link
+                key={c.meta.slug}
+                href={`/chapters/${c.meta.slug}`}
+                className="group rounded-2xl border border-bg-border bg-bg-card/70 p-5 hover:border-accent/60 transition-colors"
+              >
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="font-mono text-xs text-ink-muted">
+                    {String(c.meta.number).padStart(2, "0")}
+                  </span>
+                  <Badge tone="accent">{moduleLetter(c.meta.module)}</Badge>
+                  <span className="text-xs text-ink-muted">
+                    ~{c.meta.minutes} {t("home.minutes")} · {t("home.level")} {c.meta.level}
+                  </span>
+                </div>
+                <div className="text-lg font-semibold text-ink group-hover:text-accent transition-colors">
+                  {payload.title}
+                </div>
+                <div className="mt-1 text-sm text-ink-dim leading-relaxed">{payload.hook}</div>
+              </Link>
+            );
+          })}
         </div>
       </section>
 
       {/* Modules */}
       <section className="container-wide pb-16">
         <div className="flex items-baseline justify-between mb-5">
-          <h2 className="text-2xl font-semibold text-ink">The eight modules</h2>
+          <h2 className="text-2xl font-semibold text-ink">{t("home.modules")}</h2>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
           {MODULES.map((m) => (
@@ -121,10 +125,10 @@ export default function HomePage() {
               className="rounded-2xl border border-bg-border bg-bg-card/70 p-5"
             >
               <div className="text-xs uppercase tracking-wider text-accent">
-                Module {m.letter}
+                {t("roadmap.module")} {m.letter}
               </div>
-              <div className="mt-1 font-semibold text-ink">{m.title}</div>
-              <div className="mt-2 text-sm text-ink-dim leading-relaxed">{m.blurb}</div>
+              <div className="mt-1 font-semibold text-ink">{m.title[locale]}</div>
+              <div className="mt-2 text-sm text-ink-dim leading-relaxed">{m.blurb[locale]}</div>
             </div>
           ))}
         </div>

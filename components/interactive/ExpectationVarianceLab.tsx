@@ -12,6 +12,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { Slider } from "@/components/ui/Slider";
+import { useT } from "@/lib/i18n/useT";
 
 /**
  * A small lab for experimenting with E[X] and Var(X) on a 6-outcome
@@ -19,6 +20,7 @@ import { Slider } from "@/components/ui/Slider";
  * (re-normalized) and the values.
  */
 export function ExpectationVarianceLab() {
+  const { t } = useT();
   const [vals, setVals] = useState([1, 2, 3, 4, 5, 6]);
   const [w, setW] = useState([1, 1, 1, 1, 1, 1]);
 
@@ -47,10 +49,7 @@ export function ExpectationVarianceLab() {
               <ReferenceLine x={E} stroke="#ffc46b" strokeDasharray="4 4" label={{ value: "E[X]", fill: "#ffc46b", fontSize: 11, position: "top" }} />
             </BarChart>
           </ResponsiveContainer>
-          <div className="mt-2 text-xs text-ink-dim">
-            Drag the weights to reshape the distribution. The amber line is the
-            mean — the balance point of the distribution.
-          </div>
+          <div className="mt-2 text-xs text-ink-dim">{t("sim.weightHint")}</div>
         </div>
         <div className="space-y-3">
           {w.map((wi, i) => (

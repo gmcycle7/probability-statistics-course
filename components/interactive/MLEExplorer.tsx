@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/Button";
 import { mulberry32, randNormal } from "@/lib/math/random";
 import { linspace, mean, variance } from "@/lib/stats/summary";
 import { normal } from "@/lib/stats/distributions";
+import { useT } from "@/lib/i18n/useT";
 
 /**
  * MLE for a Normal model with known σ:
@@ -23,6 +24,7 @@ import { normal } from "@/lib/stats/distributions";
  * The MLE is μ̂ = sample mean.
  */
 export function MLEExplorer() {
+  const { t } = useT();
   const [trueMu, setTrueMu] = useState(2);
   const [n, setN] = useState(20);
   const [sigma, setSigma] = useState(1);
@@ -74,19 +76,19 @@ export function MLEExplorer() {
           </ResponsiveContainer>
         </div>
         <div className="space-y-4">
-          <Slider label="true μ" value={trueMu} min={-3} max={3} step={0.1} onChange={setTrueMu} format={(v) => v.toFixed(2)} />
-          <Slider label="σ (known)" value={sigma} min={0.2} max={3} step={0.05} onChange={setSigma} format={(v) => v.toFixed(2)} />
-          <Slider label="n (sample size)" value={n} min={2} max={500} step={1} onChange={setN} />
-          <Slider label="seed" value={seed} min={1} max={999} step={1} onChange={setSeed} />
-          <Slider label="your guess for μ" value={muTry} min={-5} max={5} step={0.05} onChange={setMuTry} format={(v) => v.toFixed(2)} />
+          <Slider label={t("sim.muTrueLabel")} value={trueMu} min={-3} max={3} step={0.1} onChange={setTrueMu} format={(v) => v.toFixed(2)} />
+          <Slider label={t("sim.sigmaKnown")} value={sigma} min={0.2} max={3} step={0.05} onChange={setSigma} format={(v) => v.toFixed(2)} />
+          <Slider label={t("sim.n")} value={n} min={2} max={500} step={1} onChange={setN} />
+          <Slider label={t("sim.seedShort")} value={seed} min={1} max={999} step={1} onChange={setSeed} />
+          <Slider label={t("sim.yourGuess")} value={muTry} min={-5} max={5} step={0.05} onChange={setMuTry} format={(v) => v.toFixed(2)} />
           <Button variant="subtle" size="sm" onClick={() => setMuTry(parseFloat(data.muHat.toFixed(2)))}>
-            Snap to MLE
+            {t("sim.snapMLE")}
           </Button>
           <div className="rounded-xl border border-bg-border bg-bg-soft p-3 text-xs font-mono space-y-1">
-            <div className="text-ink-muted normal-case">log-likelihood</div>
-            <div>at MLE = {data.ll.reduce((m, p) => Math.max(m, p.ll), -Infinity).toFixed(2)}</div>
-            <div className="text-accent-violet">at your guess = {userLL.toFixed(2)}</div>
-            <div className="mt-2 text-ink-muted normal-case">point estimates</div>
+            <div className="text-ink-muted normal-case">{t("sim.logLikelihood")}</div>
+            <div>{t("sim.atMLE")} {data.ll.reduce((m, p) => Math.max(m, p.ll), -Infinity).toFixed(2)}</div>
+            <div className="text-accent-violet">{t("sim.atGuess")} {userLL.toFixed(2)}</div>
+            <div className="mt-2 text-ink-muted normal-case">{t("sim.pointEstimates")}</div>
             <div className="text-accent-green">μ̂ = {data.muHat.toFixed(3)}</div>
             <div>σ̂ (MLE) = {data.sigmaHat.toFixed(3)}</div>
           </div>

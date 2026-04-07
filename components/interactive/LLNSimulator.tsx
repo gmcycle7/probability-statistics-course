@@ -15,10 +15,12 @@ import {
 import { Slider } from "@/components/ui/Slider";
 import { Button } from "@/components/ui/Button";
 import { mulberry32, randBernoulli } from "@/lib/math/random";
+import { useT } from "@/lib/i18n/useT";
 
 type Run = { i: number; r1: number; r2: number; r3: number };
 
 export function LLNSimulator() {
+  const { t } = useT();
   const [p, setP] = useState(0.3);
   const [steps, setSteps] = useState(1000);
   const [seed, setSeed] = useState(7);
@@ -66,17 +68,13 @@ export function LLNSimulator() {
           </ResponsiveContainer>
         </div>
         <div className="space-y-4">
-          <Slider label="p (Bernoulli)" value={p} min={0.01} max={0.99} step={0.01} onChange={setP} format={(v) => v.toFixed(2)} />
-          <Slider label="trials per run" value={steps} min={50} max={5000} step={50} onChange={setSteps} />
-          <Slider label="seed" value={seed} min={1} max={999} step={1} onChange={setSeed} />
+          <Slider label={t("sim.bernoulliP")} value={p} min={0.01} max={0.99} step={0.01} onChange={setP} format={(v) => v.toFixed(2)} />
+          <Slider label={t("sim.trialsPerRun")} value={steps} min={50} max={5000} step={50} onChange={setSteps} />
+          <Slider label={t("sim.seedShort")} value={seed} min={1} max={999} step={1} onChange={setSeed} />
           <Button variant="subtle" size="sm" onClick={() => setSeed(Math.floor(Math.random() * 999) + 1)}>
-            Re-roll seed
+            {t("sim.reroll")}
           </Button>
-          <div className="text-xs text-ink-dim leading-relaxed">
-            Three independent runs. As <span className="font-mono">n → ∞</span>, every running average should funnel toward{" "}
-            <span className="text-accent-amber font-mono">p</span>. Notice how variability is huge for small n and shrinks like{" "}
-            <span className="font-mono">1/√n</span>.
-          </div>
+          <div className="text-xs text-ink-dim leading-relaxed">{t("sim.lln.hint")}</div>
         </div>
       </div>
     </div>

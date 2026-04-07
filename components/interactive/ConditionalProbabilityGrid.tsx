@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Slider } from "@/components/ui/Slider";
+import { useT } from "@/lib/i18n/useT";
 
 /**
  * Visualizes a 2-event joint distribution as a 100×100 grid.
@@ -9,6 +10,7 @@ import { Slider } from "@/components/ui/Slider";
  * P(A∩B), P(B), P(A|B) — all interactively, without numbers first.
  */
 export function ConditionalProbabilityGrid() {
+  const { t } = useT();
   const [pA, setPA] = useState(0.3);
   const [pBgivenA, setPBgivenA] = useState(0.8);
   const [pBgivenNotA, setPBgivenNotA] = useState(0.1);
@@ -85,11 +87,7 @@ export function ConditionalProbabilityGrid() {
               B (dark)
             </text>
           </svg>
-          <div className="mt-1 text-xs text-ink-muted">
-            Width = P(A); inside each column, the dark band is P(B | A) (or P(B | ¬A)).
-            The dark area equals P(A∩B) + P(¬A∩B) = P(B). Bayes&apos; rule reads off as the dark
-            area inside A divided by the total dark area.
-          </div>
+          <div className="mt-1 text-xs text-ink-muted">{t("sim.cond.hint")}</div>
         </div>
         <div className="space-y-4">
           <Slider label="P(A)" value={pA} min={0.01} max={0.99} step={0.01} onChange={setPA} format={(v) => v.toFixed(2)} />

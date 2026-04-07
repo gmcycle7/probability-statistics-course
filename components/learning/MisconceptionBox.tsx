@@ -1,4 +1,7 @@
+"use client";
+
 import { AlertTriangle } from "lucide-react";
+import { useT } from "@/lib/i18n/useT";
 
 export type Misconception = {
   wrong: string;
@@ -7,23 +10,24 @@ export type Misconception = {
 };
 
 export function MisconceptionBox({ items }: { items: Misconception[] }) {
+  const { t } = useT();
   return (
     <div className="my-6 rounded-2xl border border-accent-rose/30 bg-accent-rose/5 p-5">
       <div className="flex items-center gap-2 text-accent-rose text-xs uppercase tracking-[0.18em] mb-3">
-        <AlertTriangle className="h-3.5 w-3.5" /> Common misconceptions
+        <AlertTriangle className="h-3.5 w-3.5" /> {t("common.misconceptions")}
       </div>
       <div className="space-y-4">
         {items.map((m, i) => (
           <div key={i} className="rounded-xl border border-bg-border bg-bg-card/60 p-4">
             <div className="text-sm">
               <span className="font-mono text-[10px] uppercase tracking-wider text-accent-rose mr-2">
-                myth
+                {t("common.myth")}
               </span>
               <span className="text-ink-dim">{m.wrong}</span>
             </div>
             <div className="mt-1.5 text-sm">
               <span className="font-mono text-[10px] uppercase tracking-wider text-accent-green mr-2">
-                truth
+                {t("common.truth")}
               </span>
               <span className="text-ink">{m.right}</span>
             </div>

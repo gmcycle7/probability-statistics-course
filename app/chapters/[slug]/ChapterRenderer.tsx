@@ -11,15 +11,20 @@ import { QuizCard } from "@/components/learning/QuizCard";
 import { ChapterNavigator } from "@/components/learning/ChapterNavigator";
 import { SectionHeader } from "@/components/learning/SectionHeader";
 import { useProgress } from "@/lib/store/progress";
+import { useT } from "@/lib/i18n/useT";
 import { Bookmark, BookmarkCheck, Check, CheckCheck } from "lucide-react";
+import { getNeighbors, getChapterBySlug } from "@/content/registry";
+import type { Locale } from "@/lib/i18n/locale";
 
 type Props = {
   chapter: Chapter;
-  neighbors: { prev?: { slug: string; title: string }; next?: { slug: string; title: string } };
 };
 
-export function ChapterRenderer({ chapter, neighbors }: Props) {
-  const { meta, content } = chapter;
+export function ChapterRenderer({ chapter }: Props) {
+  const { meta } = chapter;
+  const { t, locale } = useT();
+  const payload = chapter.localized[locale] ?? chapter.localized.en;
+  const neighbors = getNeighbors(meta.slug);
   const setLast = useProgress((s) => s.setLastChapter);
   const completed = useProgress((s) => s.completedChapters[meta.slug]);
   const toggleChapter = useProgress((s) => s.toggleChapter);
@@ -32,19 +37,35 @@ export function ChapterRenderer({ chapter, neighbors }: Props) {
     setLast(meta.slug);
   }, [meta.slug, setLast]);
 
+  // Localize the neighbour titles via a registry lookup.
+  const prevTitle = neighbors.prev
+    ? getLocalizedTitle(neighbors.prev.slug, locale)
+    : undefined;
+  const nextTitle = neighbors.next
+    ? getLocalizedTitle(neighbors.next.slug, locale)
+    : undefined;
+
   return (
     <article className="container-prose pt-12 pb-16">
       {/* Header */}
       <header>
         <div className="flex flex-wrap items-center gap-2 text-xs">
-          <Badge tone="accent">Chapter {String(meta.number).padStart(2, "0")}</Badge>
-          <Badge tone="violet">level {meta.level}</Badge>
-          <span className="text-ink-muted">~{meta.minutes} min read</span>
+          <Badge tone="accent">
+            {t("chapter.badge")}
+            {String(meta.number).padStart(2, "0")}
+            {t("chapter.badgeSuffix")}
+          </Badge>
+          <Badge tone="violet">
+            {locale === "zh" ? "難度" : "level"} {meta.level}
+          </Badge>
+          <span className="text-ink-muted">
+            ~{meta.minutes} {t("chapter.minRead")}
+          </span>
         </div>
         <h1 className="mt-3 text-4xl font-semibold tracking-tight text-ink">
-          {meta.title}
+          {payload.title}
         </h1>
-        <p className="mt-2 text-lg text-ink-dim leading-relaxed">{meta.subtitle}</p>
+        <p className="mt-2 text-lg text-ink-dim leading-relaxed">{payload.subtitle}</p>
 
         <div className="mt-5 flex flex-wrap gap-2">
           <Button
@@ -54,11 +75,11 @@ export function ChapterRenderer({ chapter, neighbors }: Props) {
           >
             {completed ? (
               <>
-                <CheckCheck className="h-4 w-4" /> Marked complete
+                <CheckCheck className="h-4 w-4" /> {t("chapter.markedComplete")}
               </>
             ) : (
               <>
-                <Check className="h-4 w-4" /> Mark complete
+                <Check className="h-4 w-4" /> {t("chapter.markComplete")}
               </>
             )}
           </Button>
@@ -69,61 +90,59 @@ export function ChapterRenderer({ chapter, neighbors }: Props) {
           >
             {isBookmarked ? (
               <>
-                <BookmarkCheck className="h-4 w-4" /> Bookmarked
+                <BookmarkCheck className="h-4 w-4" /> {t("chapter.bookmarked")}
               </>
             ) : (
               <>
-                <Bookmark className="h-4 w-4" /> Bookmark
+                <Bookmark className="h-4 w-4" /> {t("chapter.bookmark")}
               </>
             )}
           </Button>
         </div>
       </header>
 
-      {/* 1. Why this matters */}
-      <SectionHeader step="01" title="Why this matters" />
-      <div className="text-ink leading-relaxed">{content.whyItMatters}</div>
+      <SectionHeader step="01" title={t("chapter.section.why")} />
+      <div className="text-ink leading-relaxed">{payload.whyItMatters}</div>
 
-      {/* 2-4. Three-layer view */}
       <SectionHeader
         step="02"
-        title="Three layers"
-        blurb="Move through Intuition → Formalism → Graduate insight at your own pace."
+        title={t("chapter.section.layers")}
+        blurb={t("chapter.section.layers.blurb")}
       />
       <ThreeLayerView
-        intuition={content.intuition}
-        formal={content.formal}
-        graduate={content.graduate}
+        intuition={payload.intuition}
+        formal={payload.formal}
+        graduate={payload.graduate}
       />
 
-      {/* 5. Body: visualisations, derivations, examples */}
       <SectionHeader
         step="03"
-        title="Visual & worked exploration"
-        blurb="Live simulations, derivations you can step through, and worked examples."
+        title={t("chapter.section.body")}
+        blurb={t("chapter.section.body.blurb")}
       />
-      <div className="prose-tight">{content.body}</div>
+      <div className="prose-tight">{payload.body}</div>
 
-      {/* 6. Common misconceptions */}
-      <SectionHeader step="04" title="Common misconceptions" />
-      <MisconceptionBox items={content.misconceptions} />
+      <SectionHeader step="04" title={t("chapter.section.misconceptions")} />
+      <MisconceptionBox items={payload.misconceptions} />
 
-      {/* 7. Quick quiz */}
-      <SectionHeader step="05" title="Quick quiz" blurb="Lock in your understanding before moving on." />
-      <QuizCard chapterSlug={meta.slug} questions={content.quiz} />
+      <SectionHeader
+        step="05"
+        title={t("chapter.section.quiz")}
+        blurb={t("chapter.section.quiz.blurb")}
+      />
+      <QuizCard chapterSlug={meta.slug} questions={payload.quiz} />
 
-      {/* 8. Key takeaways */}
-      <SectionHeader step="06" title="Key takeaways" />
-      <KeyTakeaways items={content.takeaways} />
+      <SectionHeader step="06" title={t("chapter.section.takeaways")} />
+      <KeyTakeaways items={payload.takeaways} />
 
-      {/* 9. Further reading */}
-      {content.furtherReading && content.furtherReading.length > 0 && (
+      {payload.furtherReading && payload.furtherReading.length > 0 && (
         <>
-          <SectionHeader step="07" title="Further reading" />
+          <SectionHeader step="07" title={t("chapter.section.further")} />
           <ul className="space-y-1.5 text-ink-dim">
-            {content.furtherReading.map((r, i) => (
+            {payload.furtherReading.map((r, i) => (
               <li key={i}>
-                · {r.href ? (
+                ·{" "}
+                {r.href ? (
                   <a href={r.href} className="link">
                     {r.title}
                   </a>
@@ -137,7 +156,24 @@ export function ChapterRenderer({ chapter, neighbors }: Props) {
         </>
       )}
 
-      <ChapterNavigator prev={neighbors.prev} next={neighbors.next} />
+      <ChapterNavigator
+        prev={
+          neighbors.prev && prevTitle
+            ? { slug: neighbors.prev.slug, title: prevTitle }
+            : undefined
+        }
+        next={
+          neighbors.next && nextTitle
+            ? { slug: neighbors.next.slug, title: nextTitle }
+            : undefined
+        }
+      />
     </article>
   );
+}
+
+function getLocalizedTitle(slug: string, locale: Locale): string {
+  const c = getChapterBySlug(slug);
+  if (!c) return slug;
+  return c.localized[locale]?.title ?? c.localized.en.title;
 }

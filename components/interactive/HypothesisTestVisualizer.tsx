@@ -15,15 +15,14 @@ import {
 import { Slider } from "@/components/ui/Slider";
 import { normal } from "@/lib/stats/distributions";
 import { linspace } from "@/lib/stats/summary";
+import { useT } from "@/lib/i18n/useT";
 
 /**
  * Two-sided z-test for the mean of a Normal(μ, σ²) with σ known.
  * H0: μ = μ0    H1: μ ≠ μ0
- * Visualizes the null distribution of the sample mean,
- * the rejection region, the true sampling distribution if μ = μ1,
- * type I (α) and type II (β) regions, and power.
  */
 export function HypothesisTestVisualizer() {
+  const { t } = useT();
   const [mu0, setMu0] = useState(0);
   const [mu1, setMu1] = useState(0.5);
   const [sigma, setSigma] = useState(1);
@@ -67,10 +66,10 @@ export function HypothesisTestVisualizer() {
               <XAxis dataKey="x" type="number" tickFormatter={(v) => Number(v).toFixed(2)} stroke="#9aa4bf" />
               <YAxis stroke="#9aa4bf" />
               <Tooltip formatter={(v: number) => v.toFixed(3)} labelFormatter={(v) => `x̄ = ${Number(v).toFixed(3)}`} />
-              <Area type="monotone" dataKey="h0" name="under H₀" stroke="#7c9cff" fill="#7c9cff" fillOpacity={0.18} />
-              <Area type="monotone" dataKey="h1" name="under H₁" stroke="#5fd0a4" fill="#5fd0a4" fillOpacity={0.18} />
-              <Area type="monotone" dataKey="typeI" name="α (type I)" stroke="#ff7a9a" fill="#ff7a9a" fillOpacity={0.55} />
-              <Area type="monotone" dataKey="typeII" name="β (type II)" stroke="#ffc46b" fill="#ffc46b" fillOpacity={0.55} />
+              <Area type="monotone" dataKey="h0" name="H₀" stroke="#7c9cff" fill="#7c9cff" fillOpacity={0.18} />
+              <Area type="monotone" dataKey="h1" name="H₁" stroke="#5fd0a4" fill="#5fd0a4" fillOpacity={0.18} />
+              <Area type="monotone" dataKey="typeI" name="α" stroke="#ff7a9a" fill="#ff7a9a" fillOpacity={0.55} />
+              <Area type="monotone" dataKey="typeII" name="β" stroke="#ffc46b" fill="#ffc46b" fillOpacity={0.55} />
               <ReferenceLine x={lo} stroke="#9aa4bf" strokeDasharray="3 3" />
               <ReferenceLine x={hi} stroke="#9aa4bf" strokeDasharray="3 3" />
               <Legend wrapperStyle={{ fontSize: 11 }} />
@@ -78,19 +77,19 @@ export function HypothesisTestVisualizer() {
           </ResponsiveContainer>
         </div>
         <div className="space-y-4">
-          <Slider label="μ₀ (null)" value={mu0} min={-3} max={3} step={0.05} onChange={setMu0} format={(v) => v.toFixed(2)} />
-          <Slider label="μ₁ (true)" value={mu1} min={-3} max={3} step={0.05} onChange={setMu1} format={(v) => v.toFixed(2)} />
+          <Slider label={t("sim.mu0")} value={mu0} min={-3} max={3} step={0.05} onChange={setMu0} format={(v) => v.toFixed(2)} />
+          <Slider label={t("sim.mu1")} value={mu1} min={-3} max={3} step={0.05} onChange={setMu1} format={(v) => v.toFixed(2)} />
           <Slider label="σ" value={sigma} min={0.1} max={3} step={0.05} onChange={setSigma} format={(v) => v.toFixed(2)} />
           <Slider label="n" value={n} min={2} max={500} step={1} onChange={setN} />
           <Slider label="α" value={alpha} min={0.001} max={0.2} step={0.001} onChange={setAlpha} format={(v) => v.toFixed(3)} />
 
           <div className="rounded-xl border border-bg-border bg-bg-soft p-3 text-xs space-y-1.5 font-mono">
-            <Row label="se = σ/√n" v={se.toFixed(3)} />
-            <Row label="reject if x̄ <" v={lo.toFixed(3)} c="rose" />
-            <Row label="     or x̄ >" v={hi.toFixed(3)} c="rose" />
-            <Row label="α (level)" v={alpha.toFixed(3)} />
-            <Row label="β (miss)" v={beta.toFixed(3)} c="amber" />
-            <Row label="power 1−β" v={power.toFixed(3)} c="green" />
+            <Row label={t("sim.se")} v={se.toFixed(3)} />
+            <Row label={t("sim.rejectIf")} v={lo.toFixed(3)} c="rose" />
+            <Row label={t("sim.orXBar")} v={hi.toFixed(3)} c="rose" />
+            <Row label={t("sim.alphaLevel")} v={alpha.toFixed(3)} />
+            <Row label={t("sim.beta")} v={beta.toFixed(3)} c="amber" />
+            <Row label={t("sim.power")} v={power.toFixed(3)} c="green" />
           </div>
         </div>
       </div>

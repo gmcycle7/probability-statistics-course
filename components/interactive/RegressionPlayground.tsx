@@ -16,10 +16,12 @@ import { Slider } from "@/components/ui/Slider";
 import { Button } from "@/components/ui/Button";
 import { mulberry32, randNormal } from "@/lib/math/random";
 import { mean } from "@/lib/stats/summary";
+import { useT } from "@/lib/i18n/useT";
 
 type Pt = { x: number; y: number; yhat?: number };
 
 export function RegressionPlayground() {
+  const { t } = useT();
   const [n, setN] = useState(40);
   const [trueA, setTrueA] = useState(1);
   const [trueB, setTrueB] = useState(0.8);
@@ -74,23 +76,23 @@ export function RegressionPlayground() {
               <YAxis dataKey="y" type="number" stroke="#9aa4bf" tickFormatter={(v) => Number(v).toFixed(1)} />
               <Tooltip formatter={(v: number) => Number(v).toFixed(3)} />
               <Scatter data={points} fill="#7c9cff" name="data" />
-              <Line data={fitLine} dataKey="y" type="linear" stroke="#5fd0a4" strokeWidth={2} dot={false} name="OLS fit" />
-              <Line data={trueLine} dataKey="y" type="linear" stroke="#ffc46b" strokeWidth={2} strokeDasharray="5 4" dot={false} name="true line" />
+              <Line data={fitLine} dataKey="y" type="linear" stroke="#5fd0a4" strokeWidth={2} dot={false} name="OLS" />
+              <Line data={trueLine} dataKey="y" type="linear" stroke="#ffc46b" strokeWidth={2} strokeDasharray="5 4" dot={false} name="truth" />
             </ComposedChart>
           </ResponsiveContainer>
         </div>
         <div className="space-y-4">
-          <Slider label="true intercept α" value={trueA} min={-3} max={3} step={0.05} onChange={setTrueA} format={(v) => v.toFixed(2)} />
-          <Slider label="true slope β" value={trueB} min={-3} max={3} step={0.05} onChange={setTrueB} format={(v) => v.toFixed(2)} />
-          <Slider label="noise σ" value={noise} min={0} max={3} step={0.05} onChange={setNoise} format={(v) => v.toFixed(2)} />
-          <Slider label="n (points)" value={n} min={5} max={300} step={1} onChange={setN} />
+          <Slider label={t("sim.trueAlpha")} value={trueA} min={-3} max={3} step={0.05} onChange={setTrueA} format={(v) => v.toFixed(2)} />
+          <Slider label={t("sim.trueBeta")} value={trueB} min={-3} max={3} step={0.05} onChange={setTrueB} format={(v) => v.toFixed(2)} />
+          <Slider label={t("sim.noise")} value={noise} min={0} max={3} step={0.05} onChange={setNoise} format={(v) => v.toFixed(2)} />
+          <Slider label={t("sim.nPoints")} value={n} min={5} max={300} step={1} onChange={setN} />
           <Button variant="subtle" size="sm" onClick={() => setSeed(Math.floor(Math.random() * 999) + 1)}>
-            New sample
+            {t("sim.newSamples")}
           </Button>
           <div className="rounded-xl border border-bg-border bg-bg-soft p-3 text-xs space-y-1 font-mono">
-            <div className="text-ink-muted normal-case">OLS estimates</div>
-            <div className="text-accent-green">α̂ = {a.toFixed(3)}</div>
-            <div className="text-accent-green">β̂ = {b.toFixed(3)}</div>
+            <div className="text-ink-muted normal-case">{t("sim.olsEstimates")}</div>
+            <div className="text-accent-green">{t("sim.alphaHat")} {a.toFixed(3)}</div>
+            <div className="text-accent-green">{t("sim.betaHat")} {b.toFixed(3)}</div>
             <div>SSE = {sse.toFixed(2)}</div>
             <div className="text-accent-amber">R² = {r2.toFixed(3)}</div>
           </div>

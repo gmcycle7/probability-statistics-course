@@ -16,20 +16,21 @@ export function getChapterBySlug(slug: string): Chapter | undefined {
   return CHAPTERS.find((c) => c.meta.slug === slug);
 }
 
+/**
+ * Returns just the slugs of the previous and next chapters.
+ * Titles are looked up in the active locale by the renderer.
+ */
 export function getNeighbors(slug: string): {
-  prev?: { slug: string; title: string };
-  next?: { slug: string; title: string };
+  prev?: { slug: string };
+  next?: { slug: string };
 } {
   const idx = CHAPTERS.findIndex((c) => c.meta.slug === slug);
   if (idx < 0) return {};
   return {
-    prev:
-      idx > 0
-        ? { slug: CHAPTERS[idx - 1].meta.slug, title: CHAPTERS[idx - 1].meta.title }
-        : undefined,
+    prev: idx > 0 ? { slug: CHAPTERS[idx - 1].meta.slug } : undefined,
     next:
       idx < CHAPTERS.length - 1
-        ? { slug: CHAPTERS[idx + 1].meta.slug, title: CHAPTERS[idx + 1].meta.title }
+        ? { slug: CHAPTERS[idx + 1].meta.slug }
         : undefined,
   };
 }

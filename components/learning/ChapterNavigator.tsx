@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { useT } from "@/lib/i18n/useT";
 
 export function ChapterNavigator({
   prev,
@@ -10,6 +11,7 @@ export function ChapterNavigator({
   prev?: { slug: string; title: string };
   next?: { slug: string; title: string };
 }) {
+  const { t } = useT();
   return (
     <div className="my-10 grid gap-3 sm:grid-cols-2">
       {prev ? (
@@ -18,7 +20,7 @@ export function ChapterNavigator({
           className="group rounded-2xl border border-bg-border bg-bg-card/70 p-4 hover:border-accent/60 transition-colors"
         >
           <div className="text-xs uppercase tracking-wider text-ink-muted flex items-center gap-1">
-            <ArrowLeft className="h-3 w-3" /> Previous
+            <ArrowLeft className="h-3 w-3" /> {t("chapter.prev")}
           </div>
           <div className="mt-1 text-ink group-hover:text-accent transition-colors font-medium">
             {prev.title}
@@ -33,7 +35,7 @@ export function ChapterNavigator({
           className="group rounded-2xl border border-bg-border bg-bg-card/70 p-4 text-right hover:border-accent/60 transition-colors"
         >
           <div className="text-xs uppercase tracking-wider text-ink-muted flex items-center gap-1 justify-end">
-            Next <ArrowRight className="h-3 w-3" />
+            {t("chapter.next")} <ArrowRight className="h-3 w-3" />
           </div>
           <div className="mt-1 text-ink group-hover:text-accent transition-colors font-medium">
             {next.title}

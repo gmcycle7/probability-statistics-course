@@ -4,6 +4,7 @@ import { useState } from "react";
 import { BlockMath } from "react-katex";
 import { ChevronRight, ChevronLeft, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/Button";
+import { useT } from "@/lib/i18n/useT";
 
 export type ProofStep = {
   /** Plain-language reasoning rendered as the step's title. */
@@ -15,12 +16,13 @@ export type ProofStep = {
 };
 
 export function ProofStepper({
-  title = "Derivation",
+  title,
   steps,
 }: {
   title?: string;
   steps: ProofStep[];
 }) {
+  const { t } = useT();
   const [index, setIndex] = useState(0);
   const visible = steps.slice(0, index + 1);
   const atEnd = index >= steps.length - 1;
@@ -29,10 +31,10 @@ export function ProofStepper({
     <div className="my-5 rounded-2xl border border-bg-border bg-bg-soft/60 p-5">
       <div className="flex items-center justify-between mb-3">
         <div className="text-xs uppercase tracking-[0.18em] text-accent/80">
-          {title}
+          {title ?? t("common.derivation")}
         </div>
         <div className="text-xs text-ink-muted">
-          step {index + 1} / {steps.length}
+          {t("common.step")} {index + 1} / {steps.length}
         </div>
       </div>
 
@@ -69,27 +71,22 @@ export function ProofStepper({
           onClick={() => setIndex((i) => Math.max(0, i - 1))}
           disabled={index === 0}
         >
-          <ChevronLeft className="h-4 w-4" /> Back
+          <ChevronLeft className="h-4 w-4" /> {t("common.back")}
         </Button>
         <Button
           size="sm"
           onClick={() => setIndex((i) => Math.min(steps.length - 1, i + 1))}
           disabled={atEnd}
         >
-          Next <ChevronRight className="h-4 w-4" />
+          {t("common.next")} <ChevronRight className="h-4 w-4" />
         </Button>
         <Button variant="ghost" size="sm" onClick={() => setIndex(0)}>
-          <RotateCcw className="h-4 w-4" /> Restart
+          <RotateCcw className="h-4 w-4" /> {t("common.restart")}
         </Button>
         {atEnd && (
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => setIndex(steps.length - 1)}
-            className="ml-auto text-accent-green"
-          >
-            Derivation complete
-          </Button>
+          <span className="ml-auto text-xs text-accent-green">
+            {t("common.complete")}
+          </span>
         )}
       </div>
     </div>

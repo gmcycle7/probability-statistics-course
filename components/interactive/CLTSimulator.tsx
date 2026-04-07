@@ -23,15 +23,19 @@ import {
 } from "@/lib/math/random";
 import { histogram, mean, std } from "@/lib/stats/summary";
 import { normal } from "@/lib/stats/distributions";
+import { useT } from "@/lib/i18n/useT";
 
 type Source = "uniform" | "exponential" | "bernoulli" | "bimodal";
 
-const sources: { id: Source; label: string }[] = [
-  { id: "uniform", label: "Uniform[0,1]" },
-  { id: "exponential", label: "Exponential(1)" },
-  { id: "bernoulli", label: "Bernoulli(0.2)" },
-  { id: "bimodal", label: "Bimodal mix" },
-];
+const sourceLabel = (id: Source, locale: "zh" | "en") =>
+  ({
+    uniform: { en: "Uniform[0,1]", zh: "Uniform[0,1]" },
+    exponential: { en: "Exponential(1)", zh: "Exponential(1)" },
+    bernoulli: { en: "Bernoulli(0.2)", zh: "Bernoulli(0.2)" },
+    bimodal: { en: "Bimodal mix", zh: "雙峰混合" },
+  }[id][locale]);
+
+const sources: Source[] = ["uniform", "exponential", "bernoulli", "bimodal"];
 
 function trueMomentsOf(s: Source): { mu: number; sigma: number } {
   switch (s) {
@@ -61,6 +65,7 @@ function drawOne(s: Source, rng: () => number): number {
 }
 
 export function CLTSimulator() {
+  const { t, locale } = useT();
   const [source, setSource] = useState<Source>("exponential");
   const [n, setN] = useState(20);
   const [trials, setTrials] = useState(2000);
@@ -98,15 +103,15 @@ export function CLTSimulator() {
       <div className="flex flex-wrap gap-2 mb-3">
         {sources.map((s) => (
           <button
-            key={s.id}
-            onClick={() => setSource(s.id)}
+            key={s}
+            onClick={() => setSource(s)}
             className={`px-3 py-1.5 rounded-full text-xs border transition-colors ${
-              source === s.id
+              source === s
                 ? "border-accent bg-accent/15 text-accent"
                 : "border-bg-border bg-bg-soft text-ink-dim hover:text-ink"
             }`}
           >
-            {s.label}
+            {sourceLabel(s, locale)}
           </button>
         ))}
       </div>
@@ -138,19 +143,19 @@ export function CLTSimulator() {
         </div>
 
         <div className="space-y-4">
-          <Slider label="n (sample size)" value={n} min={1} max={200} step={1} onChange={setN} />
-          <Slider label="number of sample means" value={trials} min={200} max={10000} step={100} onChange={setTrials} />
-          <Slider label="random seed" value={seed} min={1} max={999} step={1} onChange={setSeed} />
+          <Slider label={t("sim.n")} value={n} min={1} max={200} step={1} onChange={setN} />
+          <Slider label={t("sim.numMeans")} value={trials} min={200} max={10000} step={100} onChange={setTrials} />
+          <Slider label={t("sim.seed")} value={seed} min={1} max={999} step={1} onChange={setSeed} />
           <Button variant="subtle" size="sm" onClick={() => setSeed(Math.floor(Math.random() * 999) + 1)}>
-            Re-roll seed
+            {t("sim.reroll")}
           </Button>
 
           <div className="rounded-xl border border-bg-border bg-bg-soft p-3 text-xs space-y-1.5">
-            <div className="text-ink-muted uppercase tracking-wider">Observed vs theory</div>
-            <Row label="μ (true)" value={momentsTrue.mu.toFixed(3)} accent="amber" />
-            <Row label="mean of sample means" value={momentsObs.mu.toFixed(3)} />
-            <Row label="σ/√n (theory)" value={(momentsTrue.sigma / Math.sqrt(n)).toFixed(3)} accent="amber" />
-            <Row label="std of sample means" value={momentsObs.sigma.toFixed(3)} />
+            <div className="text-ink-muted uppercase tracking-wider">{t("sim.observedVsTheory")}</div>
+            <Row label={t("sim.muTrue")} value={momentsTrue.mu.toFixed(3)} accent="amber" />
+            <Row label={t("sim.meanOfMeans")} value={momentsObs.mu.toFixed(3)} />
+            <Row label={`σ/√n ${t("sim.theory")}`} value={(momentsTrue.sigma / Math.sqrt(n)).toFixed(3)} accent="amber" />
+            <Row label={t("sim.stdOfMeans")} value={momentsObs.sigma.toFixed(3)} />
           </div>
         </div>
       </div>

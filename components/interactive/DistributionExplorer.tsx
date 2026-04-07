@@ -23,6 +23,7 @@ import {
   uniform,
 } from "@/lib/stats/distributions";
 import { linspace } from "@/lib/stats/summary";
+import { useT } from "@/lib/i18n/useT";
 
 type Family =
   | "normal"
@@ -32,14 +33,27 @@ type Family =
   | "uniform"
   | "geometric";
 
-const families: { id: Family; label: string; kind: "discrete" | "continuous" }[] = [
-  { id: "normal", label: "Normal", kind: "continuous" },
-  { id: "exponential", label: "Exponential", kind: "continuous" },
-  { id: "uniform", label: "Uniform", kind: "continuous" },
-  { id: "binomial", label: "Binomial", kind: "discrete" },
-  { id: "poisson", label: "Poisson", kind: "discrete" },
-  { id: "geometric", label: "Geometric", kind: "discrete" },
+const familyLabel = (f: Family, locale: "zh" | "en") =>
+  ({
+    normal: { en: "Normal", zh: "常態" },
+    exponential: { en: "Exponential", zh: "指數" },
+    uniform: { en: "Uniform", zh: "均勻" },
+    binomial: { en: "Binomial", zh: "二項" },
+    poisson: { en: "Poisson", zh: "Poisson" },
+    geometric: { en: "Geometric", zh: "幾何" },
+  }[f][locale]);
+
+const families: Family[] = [
+  "normal",
+  "exponential",
+  "uniform",
+  "binomial",
+  "poisson",
+  "geometric",
 ];
+
+const isContinuousFamily = (f: Family) =>
+  f === "normal" || f === "exponential" || f === "uniform";
 
 export function DistributionExplorer({
   initialFamily = "normal",
@@ -48,9 +62,9 @@ export function DistributionExplorer({
   initialFamily?: Family;
   height?: number;
 }) {
+  const { t, locale } = useT();
   const [family, setFamily] = useState<Family>(initialFamily);
 
-  // shared params (re-used per family)
   const [mu, setMu] = useState(0);
   const [sigma, setSigma] = useState(1);
   const [n, setN] = useState(20);
@@ -117,23 +131,33 @@ export function DistributionExplorer({
     }
   }, [family, mu, rate, a, b, n, p, lambda]);
 
-  const isContinuous =
-    families.find((f) => f.id === family)?.kind === "continuous";
+  const isContinuous = isContinuousFamily(family);
+
+  let varX = 0;
+  if (family === "normal") varX = sigma * sigma;
+  if (family === "binomial") varX = n * p * (1 - p);
+  if (family === "poisson") varX = lambda;
+  if (family === "geometric") varX = (1 - p) / (p * p);
+  if (family === "exponential") varX = 1 / (rate * rate);
+  if (family === "uniform") {
+    const w = Math.abs(b - a);
+    varX = (w * w) / 12;
+  }
 
   return (
     <div className="rounded-2xl border border-bg-border bg-bg-card/60 p-5">
       <div className="flex flex-wrap gap-2 mb-4">
         {families.map((f) => (
           <button
-            key={f.id}
-            onClick={() => setFamily(f.id)}
+            key={f}
+            onClick={() => setFamily(f)}
             className={`px-3 py-1.5 rounded-full text-xs border transition-colors ${
-              family === f.id
+              family === f
                 ? "border-accent bg-accent/15 text-accent"
                 : "border-bg-border bg-bg-soft text-ink-dim hover:text-ink"
             }`}
           >
-            {f.label}
+            {familyLabel(f, locale)}
           </button>
         ))}
       </div>
@@ -184,12 +208,12 @@ export function DistributionExplorer({
         <div className="space-y-4">
           {family === "normal" && (
             <>
-              <Slider label="μ (mean)" value={mu} min={-5} max={5} step={0.1} onChange={setMu} format={(v) => v.toFixed(2)} />
-              <Slider label="σ (std)" value={sigma} min={0.1} max={4} step={0.05} onChange={setSigma} format={(v) => v.toFixed(2)} />
+              <Slider label={t("sim.mu")} value={mu} min={-5} max={5} step={0.1} onChange={setMu} format={(v) => v.toFixed(2)} />
+              <Slider label={t("sim.sigma")} value={sigma} min={0.1} max={4} step={0.05} onChange={setSigma} format={(v) => v.toFixed(2)} />
             </>
           )}
           {family === "exponential" && (
-            <Slider label="λ (rate)" value={rate} min={0.1} max={5} step={0.05} onChange={setRate} format={(v) => v.toFixed(2)} />
+            <Slider label={t("sim.rate")} value={rate} min={0.1} max={5} step={0.05} onChange={setRate} format={(v) => v.toFixed(2)} />
           )}
           {family === "uniform" && (
             <>
@@ -199,7 +223,7 @@ export function DistributionExplorer({
           )}
           {family === "binomial" && (
             <>
-              <Slider label="n (trials)" value={n} min={1} max={60} step={1} onChange={setN} />
+              <Slider label={t("sim.nTrials")} value={n} min={1} max={60} step={1} onChange={setN} />
               <Slider label="p" value={p} min={0.01} max={0.99} step={0.01} onChange={setP} format={(v) => v.toFixed(2)} />
             </>
           )}
@@ -212,52 +236,16 @@ export function DistributionExplorer({
 
           <div className="rounded-xl border border-bg-border bg-bg-soft p-3 text-xs text-ink-dim space-y-1">
             <div>
-              <span className="text-ink-muted">E[X] =</span>{" "}
+              <span className="text-ink-muted">{t("sim.expectedValue")}</span>{" "}
               <span className="text-accent-amber font-mono">{meanLine.toFixed(3)}</span>
             </div>
-            <Stats family={family} mu={mu} sigma={sigma} n={n} p={p} lambda={lambda} rate={rate} a={a} b={b} />
+            <div>
+              <span className="text-ink-muted">{t("sim.variance")}</span>{" "}
+              <span className="font-mono text-accent">{varX.toFixed(3)}</span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  );
-}
-
-function Stats({
-  family,
-  mu,
-  sigma,
-  n,
-  p,
-  lambda,
-  rate,
-  a,
-  b,
-}: {
-  family: Family;
-  mu: number;
-  sigma: number;
-  n: number;
-  p: number;
-  lambda: number;
-  rate: number;
-  a: number;
-  b: number;
-}) {
-  let varX = 0;
-  if (family === "normal") varX = sigma * sigma;
-  if (family === "binomial") varX = n * p * (1 - p);
-  if (family === "poisson") varX = lambda;
-  if (family === "geometric") varX = (1 - p) / (p * p);
-  if (family === "exponential") varX = 1 / (rate * rate);
-  if (family === "uniform") {
-    const w = Math.abs(b - a);
-    varX = (w * w) / 12;
-  }
-  return (
-    <div>
-      <span className="text-ink-muted">Var(X) =</span>{" "}
-      <span className="font-mono text-accent">{varX.toFixed(3)}</span>
     </div>
   );
 }

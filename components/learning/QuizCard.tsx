@@ -5,6 +5,7 @@ import { Check, X, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/cn";
 import { useProgress } from "@/lib/store/progress";
+import { useT } from "@/lib/i18n/useT";
 
 export type QuizQuestion = {
   id: string;
@@ -21,6 +22,7 @@ export function QuizCard({
   chapterSlug: string;
   questions: QuizQuestion[];
 }) {
+  const { t } = useT();
   const [picked, setPicked] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
   const recordQuiz = useProgress((s) => s.recordQuiz);
@@ -40,7 +42,7 @@ export function QuizCard({
   return (
     <div className="my-8 rounded-2xl border border-bg-border bg-bg-soft/60 p-5 sm:p-6">
       <div className="flex items-center gap-2 text-accent text-xs uppercase tracking-[0.18em] mb-4">
-        <Sparkles className="h-3.5 w-3.5" /> Quick quiz
+        <Sparkles className="h-3.5 w-3.5" /> {t("common.quiz")}
       </div>
       <ol className="space-y-6">
         {questions.map((q, qi) => (
@@ -85,7 +87,7 @@ export function QuizCard({
             </div>
             {submitted && q.explanation && (
               <div className="mt-2 rounded-lg border border-bg-border bg-bg-card/60 px-3 py-2 text-sm text-ink-dim">
-                <span className="text-accent font-medium mr-1.5">Why:</span>
+                <span className="text-accent font-medium mr-1.5">{t("common.why")}</span>
                 {q.explanation}
               </div>
             )}
@@ -96,15 +98,15 @@ export function QuizCard({
       <div className="mt-6 flex items-center gap-3">
         {!submitted ? (
           <Button onClick={submit} disabled={Object.keys(picked).length < questions.length}>
-            Submit answers
+            {t("common.submit")}
           </Button>
         ) : (
           <>
             <Button variant="subtle" onClick={reset}>
-              Try again
+              {t("common.tryAgain")}
             </Button>
             <div className="text-sm text-ink-dim">
-              You scored{" "}
+              {t("common.scored")}{" "}
               <span className="text-ink font-semibold">
                 {correctCount}/{questions.length}
               </span>

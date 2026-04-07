@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/Button";
 import { mulberry32, randNormal } from "@/lib/math/random";
 import { mean, std } from "@/lib/stats/summary";
 import { normal } from "@/lib/stats/distributions";
+import { useT } from "@/lib/i18n/useT";
 
 /**
  * Simulates `numCIs` 95% z-intervals for the mean of a Normal(μ, σ²)
@@ -13,6 +14,7 @@ import { normal } from "@/lib/stats/distributions";
  * bar; bars covering the true μ are blue, bars missing it are rose.
  */
 export function CISimulator() {
+  const { t } = useT();
   const [trueMu, setTrueMu] = useState(0);
   const [sigma, setSigma] = useState(1);
   const [n, setN] = useState(15);
@@ -68,22 +70,22 @@ export function CISimulator() {
             ))}
           </div>
           <div className="mt-2 text-xs text-ink-dim flex items-center justify-between">
-            <div>Each bar = one 95% CI from a fresh sample.</div>
+            <div>{t("sim.eachBar")}</div>
             <div>
-              empirical coverage:{" "}
+              {t("sim.empCoverage")}:{" "}
               <span className="font-mono text-ink">{(coverage * 100).toFixed(1)}%</span>{" "}
-              · target {(conf * 100).toFixed(0)}%
+              · {t("sim.target")} {(conf * 100).toFixed(0)}%
             </div>
           </div>
         </div>
         <div className="space-y-4">
-          <Slider label="true μ" value={trueMu} min={-3} max={3} step={0.1} onChange={setTrueMu} format={(v) => v.toFixed(2)} />
+          <Slider label={t("sim.muTrueLabel")} value={trueMu} min={-3} max={3} step={0.1} onChange={setTrueMu} format={(v) => v.toFixed(2)} />
           <Slider label="σ" value={sigma} min={0.1} max={3} step={0.05} onChange={setSigma} format={(v) => v.toFixed(2)} />
           <Slider label="n" value={n} min={2} max={200} step={1} onChange={setN} />
-          <Slider label="confidence" value={conf} min={0.5} max={0.99} step={0.01} onChange={setConf} format={(v) => `${(v * 100).toFixed(0)}%`} />
-          <Slider label="# intervals" value={numCIs} min={10} max={200} step={5} onChange={setNumCIs} />
+          <Slider label={t("sim.confidence")} value={conf} min={0.5} max={0.99} step={0.01} onChange={setConf} format={(v) => `${(v * 100).toFixed(0)}%`} />
+          <Slider label={t("sim.numCIs")} value={numCIs} min={10} max={200} step={5} onChange={setNumCIs} />
           <Button variant="subtle" size="sm" onClick={() => setSeed(Math.floor(Math.random() * 999) + 1)}>
-            New samples
+            {t("sim.newSamples")}
           </Button>
         </div>
       </div>

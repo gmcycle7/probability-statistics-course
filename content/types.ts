@@ -2,14 +2,14 @@ import { ReactNode } from "react";
 import type { QuizQuestion } from "@/components/learning/QuizCard";
 import type { Misconception } from "@/components/learning/MisconceptionBox";
 
+/** A value that exists in both languages. */
+export type Localized<T> = { en: T; zh: T };
+
+/** Locale-independent metadata. */
 export type ChapterMeta = {
   slug: string;
   module: ModuleId;
   number: number;
-  title: string;
-  subtitle: string;
-  /** ~1 sentence pitch for the roadmap card. */
-  hook: string;
   /** Approximate study minutes (used to size cards). */
   minutes: number;
   /** Difficulty 1–5 (5 = graduate). */
@@ -18,14 +18,17 @@ export type ChapterMeta = {
   tags?: string[];
 };
 
-export type ChapterContent = {
-  /** "Why this matters" — the elevator pitch. */
+/** The locale-specific payload of a chapter. */
+export type ChapterPayload = {
+  title: string;
+  subtitle: string;
+  /** ~1 sentence pitch for the roadmap card. */
+  hook: string;
+
   whyItMatters: ReactNode;
-  /** Three-layer view body parts. */
   intuition: ReactNode;
   formal: ReactNode;
   graduate: ReactNode;
-  /** Worked examples + interactive blocks. */
   body: ReactNode;
   misconceptions: Misconception[];
   takeaways: string[];
@@ -35,7 +38,7 @@ export type ChapterContent = {
 
 export type Chapter = {
   meta: ChapterMeta;
-  content: ChapterContent;
+  localized: Localized<ChapterPayload>;
 };
 
 export type ModuleId =
@@ -51,7 +54,7 @@ export type ModuleId =
 export type ModuleInfo = {
   id: ModuleId;
   letter: string;
-  title: string;
-  blurb: string;
+  title: Localized<string>;
+  blurb: Localized<string>;
   color: "accent" | "green" | "amber" | "rose" | "violet";
 };

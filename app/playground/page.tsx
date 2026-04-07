@@ -11,50 +11,99 @@ import { HypothesisTestVisualizer } from "@/components/interactive/HypothesisTes
 import { RegressionPlayground } from "@/components/interactive/RegressionPlayground";
 import { ConditionalProbabilityGrid } from "@/components/interactive/ConditionalProbabilityGrid";
 import { ExpectationVarianceLab } from "@/components/interactive/ExpectationVarianceLab";
+import { useT } from "@/lib/i18n/useT";
 
-const TOOLS = [
-  { id: "dist", label: "Distributions", el: <DistributionExplorer />, blurb: "Switch families and watch the shape change." },
-  { id: "ev", label: "Expectation & Variance", el: <ExpectationVarianceLab />, blurb: "Build a discrete random variable by hand." },
-  { id: "cond", label: "Conditional grid", el: <ConditionalProbabilityGrid />, blurb: "Visualise P(A∩B), P(B), P(A|B) as rectangles." },
-  { id: "lln", label: "Law of Large Numbers", el: <LLNSimulator />, blurb: "Three running averages converging to p." },
-  { id: "clt", label: "Central Limit Theorem", el: <CLTSimulator />, blurb: "Histogram of sample means versus the Normal limit." },
-  { id: "bayes", label: "Bayesian update (Beta)", el: <BayesUpdater />, blurb: "Posterior = prior × likelihood, in real time." },
-  { id: "mle", label: "MLE explorer", el: <MLEExplorer />, blurb: "Climb the log-likelihood and snap to the MLE." },
-  { id: "ci", label: "Confidence intervals", el: <CISimulator />, blurb: "See what 95% coverage actually looks like." },
-  { id: "test", label: "Hypothesis testing", el: <HypothesisTestVisualizer />, blurb: "α, β, and power as one picture." },
-  { id: "reg", label: "Linear regression", el: <RegressionPlayground />, blurb: "Fit OLS and watch noise vs sample size." },
+const TOOLS = (locale: "en" | "zh") => [
+  {
+    id: "dist",
+    label: { en: "Distributions", zh: "分布" }[locale],
+    el: <DistributionExplorer />,
+    blurb: { en: "Switch families and watch the shape change.", zh: "切換分布族，看形狀如何改變。" }[locale],
+  },
+  {
+    id: "ev",
+    label: { en: "Expectation & Variance", zh: "期望值與變異數" }[locale],
+    el: <ExpectationVarianceLab />,
+    blurb: { en: "Build a discrete random variable by hand.", zh: "親手建一個離散隨機變數。" }[locale],
+  },
+  {
+    id: "cond",
+    label: { en: "Conditional grid", zh: "條件機率方格" }[locale],
+    el: <ConditionalProbabilityGrid />,
+    blurb: { en: "Visualise P(A∩B), P(B), P(A|B) as rectangles.", zh: "用矩形視覺化 P(A∩B)、P(B)、P(A|B)。" }[locale],
+  },
+  {
+    id: "lln",
+    label: { en: "Law of Large Numbers", zh: "大數法則" }[locale],
+    el: <LLNSimulator />,
+    blurb: { en: "Three running averages converging to p.", zh: "三條跑動平均逐漸收斂到 p。" }[locale],
+  },
+  {
+    id: "clt",
+    label: { en: "Central Limit Theorem", zh: "中央極限定理" }[locale],
+    el: <CLTSimulator />,
+    blurb: { en: "Histogram of sample means versus the Normal limit.", zh: "樣本平均的直方圖對上常態極限。" }[locale],
+  },
+  {
+    id: "bayes",
+    label: { en: "Bayesian update (Beta)", zh: "貝氏更新（Beta）" }[locale],
+    el: <BayesUpdater />,
+    blurb: { en: "Posterior = prior × likelihood, in real time.", zh: "後驗 = 先驗 × 概似，即時運作。" }[locale],
+  },
+  {
+    id: "mle",
+    label: { en: "MLE explorer", zh: "MLE 探索器" }[locale],
+    el: <MLEExplorer />,
+    blurb: { en: "Climb the log-likelihood and snap to the MLE.", zh: "爬上對數概似曲線，對齊到 MLE。" }[locale],
+  },
+  {
+    id: "ci",
+    label: { en: "Confidence intervals", zh: "信賴區間" }[locale],
+    el: <CISimulator />,
+    blurb: { en: "See what 95% coverage actually looks like.", zh: "看看 95% 覆蓋率實際上長什麼樣子。" }[locale],
+  },
+  {
+    id: "test",
+    label: { en: "Hypothesis testing", zh: "假設檢定" }[locale],
+    el: <HypothesisTestVisualizer />,
+    blurb: { en: "α, β, and power as one picture.", zh: "α、β、檢定力，全在一張圖裡。" }[locale],
+  },
+  {
+    id: "reg",
+    label: { en: "Linear regression", zh: "線性迴歸" }[locale],
+    el: <RegressionPlayground />,
+    blurb: { en: "Fit OLS and watch noise vs sample size.", zh: "擬合 OLS，看雜訊與樣本數的拉鋸。" }[locale],
+  },
 ];
 
 export default function PlaygroundPage() {
-  const [active, setActive] = useState(TOOLS[0].id);
-  const tool = TOOLS.find((t) => t.id === active)!;
+  const { t, locale } = useT();
+  const tools = TOOLS(locale);
+  const [active, setActive] = useState(tools[0].id);
+  const tool = tools.find((tt) => tt.id === active)!;
 
   return (
     <div className="container-wide pt-12 pb-16">
       <div className="max-w-3xl">
-        <div className="heading-eyebrow">Playground</div>
-        <h1 className="mt-2 text-4xl font-semibold tracking-tight text-ink">Every interactive in one place</h1>
-        <p className="mt-3 text-ink-dim leading-relaxed">
-          Use this page like a sandbox: pick any simulator, play with it for a
-          while, develop your intuition, then go back to the chapter for the
-          formalism.
-        </p>
+        <div className="heading-eyebrow">{t("playground.eyebrow")}</div>
+        <h1 className="mt-2 text-4xl font-semibold tracking-tight text-ink">{t("playground.title")}</h1>
+        <p className="mt-3 text-ink-dim leading-relaxed">{t("playground.intro")}</p>
       </div>
 
       <div className="mt-8 grid lg:grid-cols-[260px_1fr] gap-6">
         <aside className="space-y-1">
-          {TOOLS.map((t) => (
+          {tools.map((tt) => (
             <button
-              key={t.id}
-              onClick={() => setActive(t.id)}
+              key={tt.id}
+              onClick={() => setActive(tt.id)}
               className={`w-full text-left rounded-xl border px-4 py-3 transition-colors ${
-                active === t.id
+                active === tt.id
                   ? "border-accent bg-accent/10 text-accent"
                   : "border-bg-border bg-bg-card/60 text-ink-dim hover:text-ink hover:border-accent/40"
               }`}
             >
-              <div className="text-sm font-medium">{t.label}</div>
-              <div className="mt-0.5 text-xs text-ink-muted">{t.blurb}</div>
+              <div className="text-sm font-medium">{tt.label}</div>
+              <div className="mt-0.5 text-xs text-ink-muted">{tt.blurb}</div>
             </button>
           ))}
         </aside>
@@ -63,8 +112,7 @@ export default function PlaygroundPage() {
             {tool.el}
           </div>
           <div className="mt-3 text-xs text-ink-muted">
-            All simulations run locally in your browser using JavaScript. No
-            server, no telemetry — your sliders stay yours.
+            {t("playground.note")}
           </div>
         </div>
       </div>
