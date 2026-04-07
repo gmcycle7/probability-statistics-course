@@ -10,7 +10,7 @@ const chapter: Chapter = {
   meta: {
     slug: "linear-regression",
     module: "G_regression",
-    number: 12,
+    number: 13,
     minutes: 45,
     level: 4,
     prereqs: ["maximum-likelihood-estimation", "confidence-intervals"],

@@ -10,7 +10,7 @@ const chapter: Chapter = {
   meta: {
     slug: "estimators-bias-variance-mse",
     module: "D_inference",
-    number: 6,
+    number: 7,
     minutes: 35,
     level: 3,
     prereqs: ["central-limit-theorem"],

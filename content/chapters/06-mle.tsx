@@ -10,7 +10,7 @@ const chapter: Chapter = {
   meta: {
     slug: "maximum-likelihood-estimation",
     module: "E_estimation",
-    number: 9,
+    number: 10,
     minutes: 45,
     level: 4,
     prereqs: ["common-distributions", "central-limit-theorem"],

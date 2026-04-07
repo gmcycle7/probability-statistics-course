@@ -11,6 +11,9 @@ import { HypothesisTestVisualizer } from "@/components/interactive/HypothesisTes
 import { RegressionPlayground } from "@/components/interactive/RegressionPlayground";
 import { ConditionalProbabilityGrid } from "@/components/interactive/ConditionalProbabilityGrid";
 import { ExpectationVarianceLab } from "@/components/interactive/ExpectationVarianceLab";
+import { EstimatorComparisonLab } from "@/components/interactive/EstimatorComparisonLab";
+import { JointDistributionExplorer } from "@/components/interactive/JointDistributionExplorer";
+import { MarkovChainSimulator } from "@/components/interactive/MarkovChainSimulator";
 import { useT } from "@/lib/i18n/useT";
 
 const TOOLS = (locale: "en" | "zh") => [
@@ -31,6 +34,18 @@ const TOOLS = (locale: "en" | "zh") => [
     label: { en: "Conditional grid", zh: "條件機率方格" }[locale],
     el: <ConditionalProbabilityGrid />,
     blurb: { en: "Visualise P(A∩B), P(B), P(A|B) as rectangles.", zh: "用矩形視覺化 P(A∩B)、P(B)、P(A|B)。" }[locale],
+  },
+  {
+    id: "joint",
+    label: { en: "Joint Gaussian", zh: "雙變量常態" }[locale],
+    el: <JointDistributionExplorer />,
+    blurb: { en: "Tilt ρ and watch the contour ellipse rotate.", zh: "調整 ρ，看等高線橢圓旋轉。" }[locale],
+  },
+  {
+    id: "estimator",
+    label: { en: "Estimator comparison", zh: "估計量比較" }[locale],
+    el: <EstimatorComparisonLab />,
+    blurb: { en: "Compare bias, variance, MSE of three estimators.", zh: "比較三個估計量的 bias / variance / MSE。" }[locale],
   },
   {
     id: "lln",
@@ -73,6 +88,12 @@ const TOOLS = (locale: "en" | "zh") => [
     label: { en: "Linear regression", zh: "線性迴歸" }[locale],
     el: <RegressionPlayground />,
     blurb: { en: "Fit OLS and watch noise vs sample size.", zh: "擬合 OLS，看雜訊與樣本數的拉鋸。" }[locale],
+  },
+  {
+    id: "markov",
+    label: { en: "Markov chain", zh: "Markov 鏈" }[locale],
+    el: <MarkovChainSimulator />,
+    blurb: { en: "Edit the transition matrix and watch convergence to π.", zh: "編輯轉移矩陣，看經驗占比收斂到 π。" }[locale],
   },
 ];
 

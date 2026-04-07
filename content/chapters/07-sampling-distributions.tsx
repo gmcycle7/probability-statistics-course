@@ -10,7 +10,7 @@ const chapter: Chapter = {
   meta: {
     slug: "sampling-distributions",
     module: "D_inference",
-    number: 7,
+    number: 8,
     minutes: 35,
     level: 4,
     prereqs: ["estimators-bias-variance-mse"],

@@ -10,7 +10,7 @@ const chapter: Chapter = {
   meta: {
     slug: "law-of-large-numbers",
     module: "C_limit_theorems",
-    number: 4,
+    number: 5,
     minutes: 30,
     level: 3,
     prereqs: ["random-variables-expectation-variance"],

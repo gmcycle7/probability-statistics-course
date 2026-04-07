@@ -10,7 +10,7 @@ const chapter: Chapter = {
   meta: {
     slug: "central-limit-theorem",
     module: "C_limit_theorems",
-    number: 5,
+    number: 6,
     minutes: 40,
     level: 4,
     prereqs: ["law-of-large-numbers"],

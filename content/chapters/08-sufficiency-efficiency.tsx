@@ -9,7 +9,7 @@ const chapter: Chapter = {
   meta: {
     slug: "sufficiency-and-efficiency",
     module: "D_inference",
-    number: 8,
+    number: 9,
     minutes: 35,
     level: 5,
     prereqs: ["sampling-distributions"],

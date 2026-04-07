@@ -10,7 +10,7 @@ const chapter: Chapter = {
   meta: {
     slug: "bayesian-inference",
     module: "H_advanced",
-    number: 13,
+    number: 14,
     minutes: 50,
     level: 5,
     prereqs: ["maximum-likelihood-estimation", "confidence-intervals"],

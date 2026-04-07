@@ -2,16 +2,18 @@ import type { Chapter } from "./types";
 import ch1 from "./chapters/01-conditional-bayes";
 import ch2 from "./chapters/02-random-variables";
 import ch3 from "./chapters/03-distributions";
-import ch4 from "./chapters/04-lln";
-import ch5 from "./chapters/05-clt";
-import ch6 from "./chapters/06-estimators";
-import ch7 from "./chapters/07-sampling-distributions";
-import ch8 from "./chapters/08-sufficiency-efficiency";
-import ch9 from "./chapters/06-mle";
-import ch10 from "./chapters/07-confidence-intervals";
-import ch11 from "./chapters/08-hypothesis-testing";
-import ch12 from "./chapters/09-linear-regression";
-import ch13 from "./chapters/10-bayesian-inference";
+import ch4 from "./chapters/04-joint-distributions";
+import ch5 from "./chapters/04-lln";
+import ch6 from "./chapters/05-clt";
+import ch7 from "./chapters/06-estimators";
+import ch8 from "./chapters/07-sampling-distributions";
+import ch9 from "./chapters/08-sufficiency-efficiency";
+import ch10 from "./chapters/06-mle";
+import ch11 from "./chapters/07-confidence-intervals";
+import ch12 from "./chapters/08-hypothesis-testing";
+import ch13 from "./chapters/09-linear-regression";
+import ch14 from "./chapters/10-bayesian-inference";
+import ch15 from "./chapters/15-markov-chains";
 
 export const CHAPTERS: Chapter[] = [
   ch1,
@@ -27,6 +29,8 @@ export const CHAPTERS: Chapter[] = [
   ch11,
   ch12,
   ch13,
+  ch14,
+  ch15,
 ];
 
 export function getChapterBySlug(slug: string): Chapter | undefined {
