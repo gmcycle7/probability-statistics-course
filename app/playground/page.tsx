@@ -14,6 +14,7 @@ import { ExpectationVarianceLab } from "@/components/interactive/ExpectationVari
 import { EstimatorComparisonLab } from "@/components/interactive/EstimatorComparisonLab";
 import { JointDistributionExplorer } from "@/components/interactive/JointDistributionExplorer";
 import { MarkovChainSimulator } from "@/components/interactive/MarkovChainSimulator";
+import { PCAVisualizer } from "@/components/interactive/PCAVisualizer";
 import { useT } from "@/lib/i18n/useT";
 
 const TOOLS = (locale: "en" | "zh") => [
@@ -94,6 +95,12 @@ const TOOLS = (locale: "en" | "zh") => [
     label: { en: "Markov chain", zh: "Markov 鏈" }[locale],
     el: <MarkovChainSimulator />,
     blurb: { en: "Edit the transition matrix and watch convergence to π.", zh: "編輯轉移矩陣，看經驗占比收斂到 π。" }[locale],
+  },
+  {
+    id: "pca",
+    label: { en: "PCA", zh: "主成分分析" }[locale],
+    el: <PCAVisualizer />,
+    blurb: { en: "Watch principal axes snap to maximum-variance directions.", zh: "看主軸瞬間對齊到變異最大的方向。" }[locale],
   },
 ];
 

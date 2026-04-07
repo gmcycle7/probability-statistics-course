@@ -241,6 +241,30 @@ const chapter: Chapter = {
           explanation:
             "Up to a constant in θ, ℓ(θ) = -n·D_KL(F̂_n ‖ f(·;θ)). Maximising likelihood ⇔ minimising this KL divergence.",
         },
+        {
+          id: "q4",
+          type: "numeric",
+          prompt:
+            "You observe 8 successes in 20 Bernoulli trials. What is the MLE of p?",
+          answer: 0.4,
+          tolerance: 0.005,
+          hint: "Bernoulli MLE is just the sample proportion.",
+          explanation: "p̂_MLE = k/n = 8/20 = 0.4.",
+        },
+        {
+          id: "q5",
+          type: "ordering",
+          prompt:
+            "Re-order the steps of the Bernoulli MLE derivation.",
+          steps: [
+            { id: "s1", label: "Write the likelihood: L(p) = ∏ p^{xᵢ}(1−p)^{1−xᵢ}" },
+            { id: "s2", label: "Collect powers: L(p) = p^k (1−p)^{n−k}" },
+            { id: "s3", label: "Take log: ℓ(p) = k log p + (n−k) log(1−p)" },
+            { id: "s4", label: "Differentiate: dℓ/dp = k/p − (n−k)/(1−p)" },
+            { id: "s5", label: "Set to zero and solve: p̂ = k/n" },
+          ],
+          explanation: "Standard MLE recipe: write likelihood → log it → differentiate → set to zero → solve.",
+        },
       ],
       furtherReading: [
         { title: "Casella & Berger — Statistical Inference, ch. 7" },
@@ -460,6 +484,29 @@ const chapter: Chapter = {
           answer: "c",
           explanation:
             "在 θ 上差一個常數的意義下，ℓ(θ) = -n·D_KL(F̂_n ‖ f(·;θ))。最大化概似 ⇔ 最小化這個 KL 散度。",
+        },
+        {
+          id: "q4",
+          type: "numeric",
+          prompt:
+            "你在 20 次 Bernoulli 試驗中觀察到 8 次成功。p 的 MLE 是？",
+          answer: 0.4,
+          tolerance: 0.005,
+          hint: "Bernoulli 的 MLE 就是樣本比例。",
+          explanation: "p̂_MLE = k/n = 8/20 = 0.4。",
+        },
+        {
+          id: "q5",
+          type: "ordering",
+          prompt: "把 Bernoulli MLE 的推導步驟重新排序。",
+          steps: [
+            { id: "s1", label: "寫出概似：L(p) = ∏ p^{xᵢ}(1−p)^{1−xᵢ}" },
+            { id: "s2", label: "把次方收集起來：L(p) = p^k (1−p)^{n−k}" },
+            { id: "s3", label: "取 log：ℓ(p) = k log p + (n−k) log(1−p)" },
+            { id: "s4", label: "微分：dℓ/dp = k/p − (n−k)/(1−p)" },
+            { id: "s5", label: "設為零並求解：p̂ = k/n" },
+          ],
+          explanation: "標準 MLE 食譜：寫概似 → 取 log → 微分 → 設為零 → 求解。",
         },
       ],
       furtherReading: [

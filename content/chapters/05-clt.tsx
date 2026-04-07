@@ -199,6 +199,7 @@ const chapter: Chapter = {
             { id: "d", label: "N(10, 4)" },
           ],
           answer: "b",
+          hint: "Var(X̄_n) = σ²/n. Plug in σ = 4 and n = 100.",
           explanation:
             "By the CLT, X̄_n ≈ N(μ, σ²/n) = N(10, 16/100) = N(10, 0.16). The standard error is σ/√n = 0.4.",
         },
@@ -217,17 +218,30 @@ const chapter: Chapter = {
         },
         {
           id: "q3",
+          type: "numeric",
           prompt:
-            "By the CLT, an approximate 95% interval for the population mean is...",
-          choices: [
-            { id: "a", label: "X̄ ± 1.96·σ" },
-            { id: "b", label: "X̄ ± 1.96·σ/√n" },
-            { id: "c", label: "X̄ ± 2·σ²/n" },
-            { id: "d", label: "X̄ ± n·σ" },
+            "Compute the standard error of the mean for n=144 i.i.d. observations with σ=12. (Numeric answer)",
+          answer: 1,
+          tolerance: 0.05,
+          hint: "SE = σ/√n. √144 = 12.",
+          explanation: "SE = σ/√n = 12/√144 = 12/12 = 1.0.",
+        },
+        {
+          id: "q4",
+          type: "ordering",
+          prompt:
+            "Re-order the steps of the MGF-based proof of the CLT.",
+          steps: [
+            { id: "s1", label: "Centre and rescale: Y_i = (X_i − μ)/σ, Z_n = (1/√n) Σ Y_i" },
+            { id: "s2", label: "Taylor-expand the MGF of Y around 0: M_Y(t) ≈ 1 + t²/2" },
+            { id: "s3", label: "Use independence to multiply: M_{Z_n}(t) = M_Y(t/√n)^n" },
+            { id: "s4", label: "Substitute the expansion: (1 + t²/(2n) + o(1/n))^n" },
+            { id: "s5", label: "Take the limit n→∞ to get e^{t²/2}" },
+            { id: "s6", label: "Recognise the standard Normal MGF and apply Lévy continuity" },
           ],
-          answer: "b",
+          hint: "Start by reducing to a standard mean-zero, variance-1 problem.",
           explanation:
-            "The standard error of the mean is σ/√n; the 95% z-quantile is ≈ 1.96.",
+            "The proof's structure is: standardise → Taylor-expand the single-observation MGF → independence to multiply → take the limit → recognise the result.",
         },
       ],
       furtherReading: [
@@ -407,6 +421,7 @@ const chapter: Chapter = {
             { id: "d", label: "N(10, 4)" },
           ],
           answer: "b",
+          hint: "Var(X̄_n) = σ²/n。把 σ = 4、n = 100 代入。",
           explanation:
             "由 CLT，X̄_n ≈ N(μ, σ²/n) = N(10, 16/100) = N(10, 0.16)。標準誤 σ/√n = 0.4。",
         },
@@ -425,17 +440,30 @@ const chapter: Chapter = {
         },
         {
           id: "q3",
+          type: "numeric",
           prompt:
-            "由 CLT，對母體平均的近似 95% 區間是？",
-          choices: [
-            { id: "a", label: "X̄ ± 1.96·σ" },
-            { id: "b", label: "X̄ ± 1.96·σ/√n" },
-            { id: "c", label: "X̄ ± 2·σ²/n" },
-            { id: "d", label: "X̄ ± n·σ" },
+            "計算 n=144 個 i.i.d. 觀察、σ=12 的樣本平均的標準誤。（數值答案）",
+          answer: 1,
+          tolerance: 0.05,
+          hint: "SE = σ/√n。√144 = 12。",
+          explanation: "SE = σ/√n = 12/√144 = 12/12 = 1.0。",
+        },
+        {
+          id: "q4",
+          type: "ordering",
+          prompt:
+            "把 CLT「用 MGF 證明」的步驟重新排序。",
+          steps: [
+            { id: "s1", label: "中心化並重新縮放：Y_i = (X_i − μ)/σ，Z_n = (1/√n) Σ Y_i" },
+            { id: "s2", label: "對單一觀察的 MGF 在 0 附近做 Taylor 展開：M_Y(t) ≈ 1 + t²/2" },
+            { id: "s3", label: "用獨立性把 MGF 相乘：M_{Z_n}(t) = M_Y(t/√n)^n" },
+            { id: "s4", label: "代入展開式：(1 + t²/(2n) + o(1/n))^n" },
+            { id: "s5", label: "取極限 n→∞ 得到 e^{t²/2}" },
+            { id: "s6", label: "辨認出標準常態的 MGF 並套用 Lévy 連續性定理" },
           ],
-          answer: "b",
+          hint: "從「化約成標準的零平均、單位變異數問題」開始。",
           explanation:
-            "平均的標準誤是 σ/√n；95% 的 z 分位數約為 1.96。",
+            "證明的骨架是：標準化 → 對單一觀察的 MGF 做 Taylor 展開 → 用獨立性相乘 → 取極限 → 辨認出結果。",
         },
       ],
       furtherReading: [

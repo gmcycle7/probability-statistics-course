@@ -14,6 +14,7 @@ import ch12 from "./chapters/08-hypothesis-testing";
 import ch13 from "./chapters/09-linear-regression";
 import ch14 from "./chapters/10-bayesian-inference";
 import ch15 from "./chapters/15-markov-chains";
+import ch16 from "./chapters/16-pca";
 
 export const CHAPTERS: Chapter[] = [
   ch1,
@@ -31,6 +32,7 @@ export const CHAPTERS: Chapter[] = [
   ch13,
   ch14,
   ch15,
+  ch16,
 ];
 
 export function getChapterBySlug(slug: string): Chapter | undefined {
